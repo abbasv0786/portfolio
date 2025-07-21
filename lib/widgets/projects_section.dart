@@ -278,47 +278,45 @@ class _ProjectCard extends StatelessWidget {
   Widget _buildButton(BuildContext context,
       {required String url, required String label}) {
     if (url.isNotEmpty) {
-      return Expanded(
-        child: MouseRegion(
-          cursor: SystemMouseCursors.click,
-          child: InkWell(
-            onTap: () async {
-              final Uri uri = Uri.parse(url);
-              if (await canLaunchUrl(uri)) {
-                await launchUrl(uri);
-              }
-            },
-            borderRadius: BorderRadius.circular(8),
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 8,
+      return MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: InkWell(
+          onTap: () async {
+            final Uri uri = Uri.parse(url);
+            if (await canLaunchUrl(uri)) {
+              await launchUrl(uri);
+            }
+          },
+          borderRadius: BorderRadius.circular(8),
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 8,
+            ),
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: AppColors.primary,
+                width: 1,
               ),
-              decoration: BoxDecoration(
-                border: Border.all(
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(
+                  Icons.link,
+                  size: 16,
                   color: AppColors.primary,
-                  width: 1,
                 ),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(
-                    Icons.link,
-                    size: 16,
+                const SizedBox(width: 8),
+                Text(
+                  label,
+                  style: AppTypography.bodySmall(context).copyWith(
                     color: AppColors.primary,
+                    fontWeight: FontWeight.w600,
                   ),
-                  const SizedBox(width: 8),
-                  Text(
-                    label,
-                    style: AppTypography.bodySmall(context).copyWith(
-                      color: AppColors.primary,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

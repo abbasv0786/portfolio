@@ -306,3 +306,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 **Built with ❤️ using Flutter and modern web technologies**
+
+
+<!-- flutter build web --base-href="/portfolio/"
+git checkout gh-pages
+rm -rf *
+cp -r build/web/* .
+git add .
+git commit -m "Fix base href and redeploy"
+git push origin gh-pages --force -->
