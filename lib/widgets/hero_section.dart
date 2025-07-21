@@ -128,7 +128,6 @@ class HeroSection extends StatelessWidget {
                         description,
                         style: AppTypography.bodyMedium(context),
                         textAlign: TextAlign.center,
-                        maxLines: 4,
                       ),
                     )
                         .animate()

@@ -5,17 +5,20 @@ A stunning, responsive portfolio built with Flutter featuring glassmorphism desi
 ## ✨ Features
 
 ### 🎨 **Modern Design**
+
 - **Glassmorphism Effects**: Beautiful blur effects and transparency
 - **Responsive Layout**: Perfect on all devices (mobile, tablet, desktop)
 - **Smooth Animations**: Flutter Animate package for fluid transitions
 - **Professional Typography**: Consistent text hierarchy and spacing
 
 ### ⚡ **Reactive State Management**
+
 - **GetX Controllers**: Reactive UI updates across all sections
 - **Centralized State**: Clean separation of concerns
 - **Performance Optimized**: Efficient rebuilds and memory usage
 
 ### 🎯 **Enhanced Sections**
+
 - **Hero Section**: Typing animation, profile image, call-to-action
 - **About Section**: Glassmorphism cards with tech stack
 - **Projects Section**: Filterable grid with hover effects
@@ -25,6 +28,7 @@ A stunning, responsive portfolio built with Flutter featuring glassmorphism desi
 - **Footer**: Social media integration with FontAwesome
 
 ### 🔧 **Technical Excellence**
+
 - **Clean Architecture**: Well-organized constants and controllers
 - **Error Handling**: Beautiful error states and loading widgets
 - **Accessibility**: Screen reader support and reduced motion
@@ -41,17 +45,20 @@ A stunning, responsive portfolio built with Flutter featuring glassmorphism desi
 ## 📱 Responsive Design
 
 ### Mobile (< 768px)
+
 - Single column layouts
 - Optimized touch targets
 - Simplified navigation
 - Reduced animations
 
 ### Tablet (768px - 1024px)
+
 - Two-column layouts
 - Balanced spacing
 - Enhanced navigation
 
 ### Desktop (> 1024px)
+
 - Multi-column layouts
 - Full feature set
 - Advanced interactions
@@ -60,6 +67,7 @@ A stunning, responsive portfolio built with Flutter featuring glassmorphism desi
 ## 🎨 Design System
 
 ### Color Palette
+
 - **Primary**: `#64FFDA` (Cyan)
 - **Secondary**: `#7B68EE` (Purple)
 - **Accent**: `#FF6B6B` (Coral)
@@ -67,6 +75,7 @@ A stunning, responsive portfolio built with Flutter featuring glassmorphism desi
 - **Glassmorphism**: Semi-transparent effects
 
 ### Typography
+
 - **Display**: Large headings with gradient effects
 - **Heading**: Section titles and card headers
 - **Body**: Main content and descriptions
@@ -74,6 +83,7 @@ A stunning, responsive portfolio built with Flutter featuring glassmorphism desi
 - **Button**: Call-to-action text
 
 ### Spacing
+
 - **Mobile**: 20px base spacing
 - **Tablet**: 32px base spacing
 - **Desktop**: 40px base spacing
@@ -82,6 +92,7 @@ A stunning, responsive portfolio built with Flutter featuring glassmorphism desi
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - Flutter SDK (latest stable)
 - Dart SDK
 - IDE (VS Code, Android Studio, etc.)
@@ -89,17 +100,20 @@ A stunning, responsive portfolio built with Flutter featuring glassmorphism desi
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/yourusername/flutter-portfolio.git
    cd flutter-portfolio
    ```
 
 2. **Install dependencies**
+
    ```bash
    flutter pub get
    ```
 
 3. **Run the app**
+
    ```bash
    flutter run -d chrome
    ```
@@ -107,6 +121,7 @@ A stunning, responsive portfolio built with Flutter featuring glassmorphism desi
 ### Development
 
 1. **Start development server**
+
    ```bash
    flutter run -d chrome --web-port 3000
    ```
@@ -116,6 +131,7 @@ A stunning, responsive portfolio built with Flutter featuring glassmorphism desi
    - Press `R` for hot restart
 
 3. **Build for production**
+
    ```bash
    flutter build web --release
    ```
@@ -153,23 +169,27 @@ lib/
 ## 🎯 Key Features
 
 ### State Management
+
 - **GetX Controllers**: Reactive state management
 - **Observable Variables**: Real-time UI updates
 - **Memory Efficient**: Proper disposal and cleanup
 
 ### Glassmorphism Design
+
 - **Backdrop Filters**: Blur effects and transparency
 - **Gradient Overlays**: Beautiful color transitions
 - **Subtle Shadows**: Depth and dimension
 - **Hover Effects**: Interactive feedback
 
 ### Responsive Architecture
+
 - **Media Queries**: Device-specific layouts
 - **Flexible Grids**: Adaptive content arrangement
 - **Touch Optimization**: Mobile-friendly interactions
 - **Performance**: Optimized for each device
 
 ### Accessibility
+
 - **Screen Reader**: Semantic markup and labels
 - **Keyboard Navigation**: Full keyboard support
 - **Reduced Motion**: Respects user preferences
@@ -178,6 +198,7 @@ lib/
 ## 🔧 Customization
 
 ### Colors
+
 Edit `lib/constants/colors.dart` to customize the color palette:
 
 ```dart
@@ -190,6 +211,7 @@ class AppColors {
 ```
 
 ### Content
+
 Update `lib/constants/strings.dart` to modify text content:
 
 ```dart
@@ -201,6 +223,7 @@ class AppStrings {
 ```
 
 ### Animations
+
 Customize `lib/constants/animations.dart` for timing:
 
 ```dart
@@ -214,12 +237,14 @@ class AppAnimations {
 ## 📊 Performance
 
 ### Optimizations
+
 - **Efficient Rebuilds**: GetX reactive updates
 - **Lazy Loading**: Components load on demand
 - **Image Optimization**: Compressed assets
 - **Animation Optimization**: Hardware acceleration
 
 ### Metrics
+
 - **First Contentful Paint**: < 1.5s
 - **Largest Contentful Paint**: < 2.5s
 - **Cumulative Layout Shift**: < 0.1
@@ -228,7 +253,9 @@ class AppAnimations {
 ## 🚀 Deployment
 
 ### Web Deployment
+
 1. **Build for production**
+
    ```bash
    flutter build web --release
    ```
@@ -239,7 +266,9 @@ class AppAnimations {
    - Any static hosting service
 
 ### Mobile Deployment
+
 1. **Build for mobile**
+
    ```bash
    flutter build apk --release  # Android
    flutter build ios --release  # iOS
@@ -271,10 +300,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Contact
 
-- **Portfolio**: [Your Portfolio URL]
-- **Email**: [your.email@example.com]
-- **LinkedIn**: [Your LinkedIn]
-- **GitHub**: [Your GitHub]
+- **Portfolio**: <https://abbasv0786.github.io/portfolio/#/ahemadabbas-vagh>
+- **Email**: <abbasv0786@gmail.com>
 
 ---
 

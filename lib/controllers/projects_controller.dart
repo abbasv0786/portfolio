@@ -15,7 +15,6 @@ class ProjectsController extends GetxController {
     'All',
     'iOS',
     'Flutter',
-    'Cordova',
     'React Native',
     'AI/ML',
   ].obs;

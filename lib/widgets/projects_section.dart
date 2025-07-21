@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:get/get.dart';
 import '../constants/colors.dart';
@@ -112,7 +111,7 @@ class ProjectsSection extends StatelessWidget {
                               return SizedBox(
                                 width: isMobile
                                     ? constraints.maxWidth - 40
-                                    : (constraints.maxWidth > 1200 ? 350 : 320),
+                                    : (constraints.maxWidth > 1200 ? 400 : 320),
                                 child: _ProjectCard(
                                   project: project,
                                   index: index,
@@ -166,28 +165,22 @@ class _ProjectCard extends StatelessWidget {
                     ),
                     child: Stack(
                       children: [
-                        CachedNetworkImage(
-                          imageUrl: project.imageUrl,
-                          fit: BoxFit.cover,
-                          width: double.infinity,
-                          height: double.infinity,
-                          placeholder: (context, url) => Container(
-                            color: AppColors.surface,
-                            child: const Center(
-                              child: CircularProgressIndicator(
-                                color: AppColors.secondary,
+                        project.imageUrl.isNotEmpty
+                            ? Image.asset(
+                                project.imageUrl,
+                                width: double.infinity,
+                                height: double.infinity,
+                                fit: BoxFit.fill,
+                              )
+                            : Container(
+                                color: AppColors.surface,
+                                alignment: Alignment.center,
+                                child: const Icon(
+                                  Icons.image_not_supported,
+                                  color: AppColors.textSecondary,
+                                  size: 48,
+                                ),
                               ),
-                            ),
-                          ),
-                          errorWidget: (context, url, error) => Container(
-                            color: AppColors.surface,
-                            child: const Icon(
-                              Icons.image_not_supported,
-                              color: AppColors.textSecondary,
-                              size: 48,
-                            ),
-                          ),
-                        ),
                       ],
                     ),
                   ),
@@ -215,7 +208,7 @@ class _ProjectCard extends StatelessWidget {
                         style: AppTypography.bodyMedium(context).copyWith(
                           color: AppColors.textSecondary,
                         ),
-                        maxLines: 3,
+                        maxLines: 100,
                         overflow: TextOverflow.ellipsis,
                       ),
                       const SizedBox(height: AppSpacing.paddingMedium),
@@ -223,7 +216,7 @@ class _ProjectCard extends StatelessWidget {
                       Wrap(
                         spacing: AppSpacing.paddingSmall,
                         runSpacing: AppSpacing.paddingSmall,
-                        children: project.technologies.take(4).map((tech) {
+                        children: project.technologies.map((tech) {
                           return Container(
                             padding: const EdgeInsets.symmetric(
                               horizontal: 12,
@@ -246,20 +239,11 @@ class _ProjectCard extends StatelessWidget {
                           );
                         }).toList(),
                       ),
-                      if (project.technologies.length > 4)
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: AppSpacing.paddingSmall),
-                          child: Text(
-                            '+${project.technologies.length - 4} more',
-                            style: AppTypography.bodySmall(context).copyWith(
-                              color: AppColors.textTertiary,
-                            ),
-                          ),
-                        ),
                       const SizedBox(height: AppSpacing.paddingMedium),
-                      // Buttons - Keep the existing style that works
-                      Row(
+
+                      Wrap(
+                        spacing: AppSpacing.paddingMedium,
+                        runSpacing: AppSpacing.paddingMedium,
                         children: [
                           _buildButton(context,
                               url: project.iOSUrl ?? '', label: 'IOS'),
@@ -321,7 +305,7 @@ class _ProjectCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Icon(
-                    Icons.code,
+                    Icons.link,
                     size: 16,
                     color: AppColors.primary,
                   ),

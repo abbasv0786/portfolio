@@ -1,7 +1,6 @@
 import '../models/project.dart';
 import '../models/experience.dart';
 import '../models/about_card.dart';
-import '../models/social_link.dart';
 import '../constants/assets.dart';
 import '../constants/strings.dart';
 
@@ -25,7 +24,7 @@ class PortfolioData {
   static const String telegram = '@AbbasV0786';
   static const String linkedin =
       'https://www.linkedin.com/in/ahemadabbas-vagh-b9a080171';
-  static const String twitter = 'https://twitter.com/dHx0FBQuWHZKBke';
+  static const String twitter = 'https://twitter.com/AhemadAbbasVagh';
   static const String instagram = 'https://www.instagram.com/ahemadabbasvagh';
 
   static const String portfolioName = 'AhemadAbbas A Vagh';
@@ -150,40 +149,62 @@ class PortfolioData {
   // ===== PROJECTS DATA =====
   static final List<Project> projects = [
     const Project(
-      title: "AI Expense Tracker",
+      title: "Diar24",
       description:
-          "A web application for tracking personal finance with AI integration for smart categorization and budget insights.",
-      imageUrl: AppAssets.expenseTrackerUrl,
-      technologies: ["React.js", "Node.js", "MongoDB", "AI/ML", "Chart.js"],
-      liveUrl: "https://expense-tracker-phi-wine.vercel.app/",
-      category: "Web Application",
+          "Diar24 is the ultimate app for managing your real estate needs—renting, selling, or co-owning properties. Customize your app easily, share listings across platforms, and manage your properties on the go with complete security. Accessible on both smartphones and websites, Diar24 is your pocket marketplace for exceptional deals in Tunisia.",
+      imageUrl: AppAssets.diar24Url,
+      technologies: ["Flutter", "Dart", "Firebase", "Firestore", "Rest APIs"],
+      androidUrl:
+          "https://play.google.com/store/apps/details?id=com.diar24.app",
+      category: "Flutter",
     ),
     const Project(
-      title: "Klimatee - Weather App",
+      title: "Grand Prix Tours",
       description:
-          "A modern weather application that shows weather of different locations including your current location with beautiful UI.",
-      imageUrl: AppAssets.weatherAppUrl,
-      technologies: ["React.js", "Weather API", "Geolocation", "CSS3"],
-      liveUrl: "https://klimatee.vercel.app/",
-      category: "Web Application",
+          "The Grand Prix Tours app keeps your entire trip organized in one place. Access your travel program, trip details, accommodation info, tips, and real-time messages from your tour guide—all at your fingertips.",
+      imageUrl: AppAssets.gptUrl,
+      technologies: ["Flutter", "Dart", "Firebase", "Rest APIs"],
+      androidUrl:
+          "https://play.google.com/store/apps/details?id=com.gptour.app",
+      iOSUrl: "https://apps.apple.com/us/app/grand-prix-tours/id6661033279",
+      category: "Flutter",
     ),
     const Project(
-      title: "Car Slayer - NFT Game",
+      title: "LK Fiber",
       description:
-          "A blockchain-based NFT game where players can buy, sell, and trade car NFTs using cryptocurrency.",
-      imageUrl: AppAssets.carSlayerUrl,
-      technologies: ["Solidity", "Web3", "React.js", "NFT", "Ethers.js"],
-      liveUrl: "https://car-slayer.vercel.app/",
-      category: "Blockchain Game",
+          "The LK Fiber App simplifies agreements and tasks for Fiber Internet (FTTH). Complete agreements, capture signatures, document installations with photos and map drawings, and generate PDFs. Syncs seamlessly with the LK Web portal (portal.lkfiber.dk) and works online or offline. Requires an LK Fiber agreement.",
+      imageUrl: AppAssets.lkUrl,
+      technologies: ["Flutter", "Dart", "Firebase", "Rest APIs"],
+      iOSUrl: "https://apps.apple.com/in/app/lk-flows/id1639915971",
+      androidUrl:
+          "https://play.google.com/store/apps/details?id=com.app.lkfiber&hl=en_IN",
+      category: "flutter",
     ),
     const Project(
-      title: "Stakify - DeFi Protocol",
+      title: "Kbook - Korean book",
       description:
-          "A decentralized application that allows users to stake tokens and earn rewards on the Polygon blockchain.",
-      imageUrl: AppAssets.stakifyUrl,
-      technologies: ["Solidity", "Web3", "React.js", "Polygon", "DeFi"],
-      liveUrl: "https://stakify-rose.vercel.app/",
-      category: "DeFi Protocol",
+          "A Korean language learning app that features over 1000 short webtoon-style comics created by amateur authors. KBOOK supports aspiring writers by providing a publishing platform and was selected as one of the top 3 nationwide apps in 2023, receiving government support and partnering with 120 authors. Promotes Korean language and culture through creative content.",
+      imageUrl: AppAssets.kbookUrl,
+      technologies: ["iOS", "Swift", "Cocoapods", "Rest APIs"],
+      iOSUrl: "https://apps.apple.com/us/app/kbook-korean-book/id1643541530",
+      category: "iOS",
+    ),
+    const Project(
+      title: "Tragofone",
+      description:
+          "Empower your workforce to work remotely with Tragofone – a powerful, custom-built, white-label softphone with auto-provisioning. Your daily quick business communication at a go, Tragofone mobile dialer app allows you to use your business VOIP phone number on your mobile phone. Tragofone helps you to communicate anywhere, no matter what network or device you have it on.",
+      imageUrl: AppAssets.tragofoneUrl,
+      technologies: [
+        "iOS",
+        "android",
+        "React Native",
+        "JavaScript",
+        "VOIP",
+        "Rest APIs"
+      ],
+      androidUrl:
+          "https://play.google.com/store/apps/details?id=com.tragofone.app&hl=en_IN",
+      category: "react native",
     ),
   ];
 
@@ -231,45 +252,5 @@ class PortfolioData {
       "icon": "🚀",
       "duration": "1-2 weeks",
     },
-  ];
-
-  // ===== SOCIAL MEDIA DATA =====
-  static const List<SocialLink> socialLinks = [
-    SocialLink(
-      name: "WhatsApp",
-      url: whatsapp,
-      icon: "whatsapp",
-      username: "+91 9714907429",
-    ),
-    SocialLink(
-      name: "Discord",
-      url: discord,
-      icon: "discord",
-      username: "ahemadabbas#1234",
-    ),
-    SocialLink(
-      name: "Telegram",
-      url: telegram,
-      icon: "telegram",
-      username: "@ahemadabbas",
-    ),
-    SocialLink(
-      name: "LinkedIn",
-      url: linkedin,
-      icon: "linkedin",
-      username: "ahemadabbasvagh",
-    ),
-    SocialLink(
-      name: "Twitter",
-      url: twitter,
-      icon: "twitter",
-      username: "@ahemadabbasvagh",
-    ),
-    SocialLink(
-      name: "Instagram",
-      url: instagram,
-      icon: "instagram",
-      username: "@ahemadabbasvagh",
-    ),
   ];
 }
