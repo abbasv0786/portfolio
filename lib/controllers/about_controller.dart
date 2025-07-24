@@ -12,7 +12,6 @@ class AboutController extends GetxController {
   // Get about cards from PortfolioData
   List<AboutCard> get aboutCards => PortfolioData.aboutCards;
 
-  // Tech stack categories
   final RxList<TechCategory> techCategories = [
     const TechCategory(
       title: 'Frontend',
@@ -24,10 +23,15 @@ class AboutController extends GetxController {
         'Objective-C',
         'Android',
         'Cordova',
+        'React',
         'React Native',
         'HTML/CSS',
         'JavaScript',
-        '...and a range of other'
+        'Python',
+        'Kotlin (basic)',
+        'WebViews (Ionic, Cordova)',
+        'UI/UX integration',
+        '...and a range of other',
       ],
       color: 0xFF64FFDA,
     ),
@@ -38,8 +42,12 @@ class AboutController extends GetxController {
         'Python',
         'Django',
         'FastAPI',
+        'Firebase Functions',
         'LLM APIs',
-        '...and a range of other'
+        'REST APIs',
+        'Authentication & Authorization',
+        'Cloud Functions',
+        '...and a range of other',
       ],
       color: 0xFF7B68EE,
     ),
@@ -49,7 +57,9 @@ class AboutController extends GetxController {
         'Relational: PostgreSQL, MySQL',
         'NoSQL: MongoDB, Firebase Realtime, Firestore',
         'Vector: Pinecone',
-        '...and a range of other'
+        'Data modeling & migrations',
+        'Offline Sync (Firebase)',
+        '...and a range of other',
       ],
       color: 0xFFFF6B6B,
     ),
@@ -59,16 +69,21 @@ class AboutController extends GetxController {
         'Git',
         'Docker',
         'AWS',
+        'Hubspot',
+        'Salesforce',
         'CI/CD',
-        'Source Tree',
+        'SourceTree',
         'Figma',
         'InVision',
-        'XCode',
+        'Xcode',
         'Android Studio',
         'VS Code',
         'n8n',
         'Cursor',
-        '...and a range of other'
+        'Firebase Crashlytics',
+        'App Store / Google Play Release Management',
+        'Agile / Scrum',
+        '...and a range of other',
       ],
       color: 0xFF4ECDC4,
     ),

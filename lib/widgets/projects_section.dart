@@ -166,11 +166,23 @@ class _ProjectCard extends StatelessWidget {
                     child: Stack(
                       children: [
                         project.imageUrl.isNotEmpty
-                            ? Image.asset(
-                                project.imageUrl,
-                                width: double.infinity,
-                                height: double.infinity,
-                                fit: BoxFit.fill,
+                            ? Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.vertical(
+                                    top: Radius.circular(16),
+                                  ),
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: const BorderRadius.vertical(
+                                    top: Radius.circular(16),
+                                  ),
+                                  child: Image.asset(
+                                    project.imageUrl,
+                                    width: double.infinity,
+                                    height: double.infinity,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
                               )
                             : Container(
                                 color: AppColors.surface,

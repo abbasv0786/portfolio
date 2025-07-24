@@ -149,13 +149,54 @@ class PortfolioData {
   // ===== PROJECTS DATA =====
   static final List<Project> projects = [
     const Project(
-      title: "Diar24",
+      title: "RAG ChatBot",
       description:
-          "Diar24 is the ultimate app for managing your real estate needs—renting, selling, or co-owning properties. Customize your app easily, share listings across platforms, and manage your properties on the go with complete security. Accessible on both smartphones and websites, Diar24 is your pocket marketplace for exceptional deals in Tunisia.",
-      imageUrl: AppAssets.diar24Url,
-      technologies: ["Flutter", "Dart", "Firebase", "Firestore", "Rest APIs"],
-      androidUrl:
-          "https://play.google.com/store/apps/details?id=com.diar24.app",
+          "RAG ChatBot is an intelligent document analysis and conversational AI application that transforms how users interact with information. Built with Streamlit and powered by advanced language models, it enables users to upload PDFs, analyze YouTube videos, and extract insights from web content through natural conversation. The application features a modern UI with navigation-based architecture, real-time chat functionality, vector database storage using Pinecone, and multi-modal content processing. Users can clear chat history, automatically refresh databases on new uploads, and engage with their documents through an intuitive Q&A interface powered by Google's Gemini and OpenAI models.",
+      imageUrl: AppAssets.ragChatBotUrl,
+      technologies: [
+        "Python",
+        "Streamlit",
+        "LangChain",
+        "Pinecone Vector Database",
+        "OpenAI API",
+        "Google Gemini API",
+        "Together AI",
+      ],
+      liveUrl: 'https://ragchatbot-ai.streamlit.app/',
+      category: "AI/ML",
+    ),
+    const Project(
+      title: "Movie Suggester AI",
+      description:
+          "Movie Suggester AI is an intelligent chat-based application that provides personalized movie and TV show recommendations. Users engage in natural conversations with an AI assistant that analyzes their preferences, mood, and interests to suggest the perfect content to watch. The app features a modern, responsive interface with real-time streaming responses, comprehensive movie details from IMDB integration, and support for multiple content types including movies, series, and general entertainment guidance.",
+      imageUrl: AppAssets.movieSuggesterUrl,
+      technologies: [
+        "React",
+        "TypeScript",
+        "FastAPI",
+        "Python",
+        "OpenAI API",
+      ],
+      liveUrl: 'https://movie-suggester-ai.netlify.app/',
+      category: "AI/ML",
+    ),
+    const Project(
+      title: "Woof – Pet Safety",
+      description:
+          "Woof is the #1 app for Pet Parents' peace of mind – designed to rescue your pet if something unexpectedly happens to you (eg car accident, heart attack, etc.).The Woof app was created by pet parents whose biggest fear is their pet being stranded alone at home for days (or worse) with no one to care for them if an unexpected tragedy occurred.",
+      imageUrl: AppAssets.woofUrl,
+      technologies: [
+        "Flutter",
+        "Dart",
+        "Firebase",
+        "Firestore",
+        "Rest APIs",
+        "Geofencing",
+        "Push Notifications",
+        "Geolocation",
+        "Maps"
+      ],
+      iOSUrl: "https://apps.apple.com/us/app/woof-pet-safety/id1613059890",
       category: "Flutter",
     ),
     const Project(
