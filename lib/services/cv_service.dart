@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
@@ -9,9 +11,13 @@ class CvService {
   static Future<void> generateAndDownloadCv() async {
     final pdf = pw.Document();
 
-    // Use standard fonts to avoid network/CORS issues in release builds
-    final font = pw.Font.helvetica();
-    final fontBold = pw.Font.helveticaBold();
+    // Load bundled Open Sans fonts
+    final fontData = await rootBundle.load('assets/fonts/OpenSans-Regular.ttf');
+    final fontBoldData =
+        await rootBundle.load('assets/fonts/OpenSans-Bold.ttf');
+
+    final font = pw.Font.ttf(fontData);
+    final fontBold = pw.Font.ttf(fontBoldData);
     // Using a serif font for body can sometimes be better for ATS, but OpenSans is generally safe.
     // Let's stick to OpenSans as established, but ensure sizing is legible.
 
@@ -76,11 +82,15 @@ class CvService {
     // Generate the PDF bytes
     final bytes = await pdf.save();
 
-    // specific filename for download/share
-    await Printing.sharePdf(
-      bytes: bytes,
-      filename: 'AhemadAbbas_Vagh_CV.pdf',
-    );
+    try {
+      // Direct download using sharePdf
+      await Printing.sharePdf(
+        bytes: bytes,
+        filename: 'AhemadAbbas_Vagh_CV.pdf',
+      );
+    } catch (e) {
+      debugPrint('Error generating CV: $e');
+    }
   }
 
   static pw.Widget _buildHeader(pw.Font fontBold) {
