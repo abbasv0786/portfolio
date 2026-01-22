@@ -9,9 +9,9 @@ class CvService {
   static Future<void> generateAndDownloadCv() async {
     final pdf = pw.Document();
 
-    // Use standard fonts for ATS compatibility
-    final font = await PdfGoogleFonts.openSansRegular();
-    final fontBold = await PdfGoogleFonts.openSansBold();
+    // Use standard fonts to avoid network/CORS issues in release builds
+    final font = pw.Font.helvetica();
+    final fontBold = pw.Font.helveticaBold();
     // Using a serif font for body can sometimes be better for ATS, but OpenSans is generally safe.
     // Let's stick to OpenSans as established, but ensure sizing is legible.
 
