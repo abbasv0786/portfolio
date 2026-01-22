@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:universal_html/html.dart' as html;
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
@@ -82,14 +83,35 @@ class CvService {
     // Generate the PDF bytes
     final bytes = await pdf.save();
 
-    try {
-      // Direct download using sharePdf
-      await Printing.sharePdf(
-        bytes: bytes,
-        filename: 'AhemadAbbas_Vagh_CV.pdf',
-      );
-    } catch (e) {
-      debugPrint('Error generating CV: $e');
+    if (kIsWeb) {
+      // Manual download for Web to avoid MissingPluginException
+      try {
+        final blob = html.Blob([bytes], 'application/pdf');
+        final url = html.Url.createObjectUrlFromBlob(blob);
+        final anchor = html.AnchorElement()
+          ..href = url
+          ..style.display = 'none'
+          ..download = 'AhemadAbbas_Vagh_CV.pdf';
+
+        html.document.body?.children.add(anchor);
+        anchor.click();
+
+        // Cleanup
+        html.document.body?.children.remove(anchor);
+        html.Url.revokeObjectUrl(url);
+      } catch (e) {
+        debugPrint('Error downloading Web CV: $e');
+      }
+    } else {
+      // Native download
+      try {
+        await Printing.sharePdf(
+          bytes: bytes,
+          filename: 'AhemadAbbas_Vagh_CV.pdf',
+        );
+      } catch (e) {
+        debugPrint('Error generating CV: $e');
+      }
     }
   }
 

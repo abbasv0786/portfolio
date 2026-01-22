@@ -41,6 +41,7 @@ dependencies:
 
   # State management
   get: ^4.6.6
+  universal_html: ^2.2.4
 
   # Icons and fonts
   font_awesome_flutter: ^10.7.0
