@@ -26,6 +26,8 @@ class PortfolioData {
       'https://www.linkedin.com/in/ahemadabbas-vagh-b9a080171';
   static const String twitter = 'https://twitter.com/AhemadAbbasVagh';
   static const String instagram = 'https://www.instagram.com/ahemadabbasvagh';
+  static const String portfolioUrl =
+      'https://abbasv0786.github.io/portfolio/#/ahemadabbas-vagh';
 
   static const String portfolioName = 'AhemadAbbas A Vagh';
   static const String footerDescription =
@@ -35,7 +37,44 @@ class PortfolioData {
       '© 2025 AhemadAbbas Vagh. All rights reserved.';
 
   // ===== TECHNICAL SKILLS =====
+  // ===== TECHNICAL SKILLS =====
   // Skills are managed directly in AboutController's techCategories
+
+  // ===== CV DATA =====
+  // ===== CV DATA =====
+  static const String cvProfessionalSummary =
+      "Experienced mobile app developer with expertise in developing cross-platform apps using React Native, Flutter, iOS, and Cordova. Proficient in JavaScript, Dart, Swift, and Objective-C with a strong focus on creating user-friendly and intuitive interfaces. Skilled in performance optimization and using tools such as Firebase to enhance app functionality. Proven track record of delivering scalable solutions and leading technical teams.";
+
+  static const List<String> cvSkills = [
+    'Mobile Development: Flutter (Expert), iOS (Expert), React Native (Intermediate), Cordova (Intermediate), Dart (Expert), Swift (Expert), Objective-C (Intermediate), JavaScript (Expert)',
+    'Backend & Cloud: Node.js, Firebase (Expert), REST APIs, Python',
+    'AI & ML: Generative AI, LLM Integration, LangChain, OpenAI API',
+    'Tools & Methodologies: Git, CI/CD, Agile, Scrum, Jira, Xcode, Android Studio'
+  ];
+
+  static const List<String> cvAccomplishments = [
+    'Developed and released a highly-rated Mobile app with over 1k+ downloads.',
+    'Optimized app performance by reducing load times by 20%.',
+    'Collaborated with a team to develop a mobile app that received recognition from the client for excellent performance and usability.'
+  ];
+
+  static const List<String> cvEducationAndCerts = [
+    "Bachelor's Degree in Information Technology, Ganpat University (April - 2018)",
+    "Certified iOS Developer, Codal System PVT LTD",
+    "Certified Flutter Developer, Udemy",
+    "Certified React Native Developer, Ecosmob PVT LTD"
+  ];
+
+  static const Map<String, String> cvExperienceSummaries = {
+    "Independent Software Engineer":
+        "Leading cross-platform mobile app development with Flutter and building scalable backend services using Node.js and MongoDB. Integrating advanced AI features with Python, OpenAI APIs, and LangChain for RAG pipelines and on-device inference. Managing end-to-end app deployment and version control on App Store and Google Play, ensuring high-quality releases and client satisfaction.",
+    "Ecosmob Technologies":
+        "Led cross-platform app development (Flutter, React Native, Cordova) for diverse industries. Engineered native iOS apps (Swift/Obj-C) with VOIP and geolocation features. Collaborated with teams to deliver high-quality apps and managed full deployment lifecycles.",
+    "Green Apex Technolabs":
+        "Developed high-performance Flutter applications focusing on clean architecture and scalability. Implemented features like real-time geolocation tracking and social media integration. Collaborated with UI/UX designers and mentored junior developers.",
+    "Codal System Pvt Ltd":
+        "Built robust native iOS applications using Swift and Objective-C for healthcare, e-commerce, and fintech sectors. Implemented key features such as Core Data persistence, push notifications, and third-party API integrations. Collaborated closely with cross-functional teams to deliver pixel-perfect interfaces and contributed to establishing efficient team coding standards.",
+  };
 
   // ===== EXPERIENCE DATA =====
   static const List<Experience> experiences = [
@@ -181,6 +220,47 @@ class PortfolioData {
       category: "AI/ML",
     ),
     const Project(
+      title: "Tragofone",
+      description:
+          "A powerful, custom-built, white-label softphone with auto-provisioning. Enables your workforce to work remotely with easy voice calling and text messaging using your business VoIP phone number on mobile. Features include seamless communication across networks and devices, acting as your complete VoIP SIP Softphone solution.",
+      imageUrl: AppAssets.tragofoneUrl,
+      technologies: [
+        "iOS",
+        "android",
+        "React Native",
+        "JavaScript",
+        "VOIP",
+        "Rest APIs"
+      ],
+      androidUrl:
+          "https://play.google.com/store/apps/details?id=com.tragofone.app&hl=en_IN",
+      category: "react native",
+    ),
+    const Project(
+      title: "SSP",
+      description:
+          "An application designed to assist NGOs in supporting private schools (School Shiksha Parivar). It manages user roles, school details, and a comprehensive complaint resolution system to help address RTE (Right to Education) and other operational challenges faced by small schools.",
+      imageUrl: AppAssets.sspUrl,
+      technologies: ["Flutter", "Dart", "Firebase", "Rest APIs"],
+      androidUrl:
+          "https://play.google.com/store/apps/details?id=com.flutter.app.ssp",
+      category: "Flutter",
+    ),
+    const Project(
+      title: "Dr Batra's Healthcare",
+      description:
+          "Designed for patient convenience, this app connects users with doctors efficiently. Key features include video consultations, a message board for queries, appointment scheduling, medical record management, visit feedback, direct escalation to senior doctors, and an online product store. It also facilitates patient referrals and special offers.",
+      imageUrl: AppAssets.drBatraUrl,
+      technologies: [
+        "Android",
+        "iOS",
+        "Flutter",
+        "Rest APIs"
+      ], // Inferred from context/link
+      androidUrl: "https://play.google.com/store/search?q=dr%20batra&c=apps",
+      category: "Mobile",
+    ),
+    const Project(
       title: "Woof – Pet Safety",
       description:
           "Woof is the #1 app for Pet Parents' peace of mind – designed to rescue your pet if something unexpectedly happens to you (eg car accident, heart attack, etc.).The Woof app was created by pet parents whose biggest fear is their pet being stranded alone at home for days (or worse) with no one to care for them if an unexpected tragedy occurred.",
@@ -229,23 +309,6 @@ class PortfolioData {
       technologies: ["iOS", "Swift", "Cocoapods", "Rest APIs"],
       iOSUrl: "https://apps.apple.com/us/app/kbook-korean-book/id1643541530",
       category: "iOS",
-    ),
-    const Project(
-      title: "Tragofone",
-      description:
-          "Empower your workforce to work remotely with Tragofone – a powerful, custom-built, white-label softphone with auto-provisioning. Your daily quick business communication at a go, Tragofone mobile dialer app allows you to use your business VOIP phone number on your mobile phone. Tragofone helps you to communicate anywhere, no matter what network or device you have it on.",
-      imageUrl: AppAssets.tragofoneUrl,
-      technologies: [
-        "iOS",
-        "android",
-        "React Native",
-        "JavaScript",
-        "VOIP",
-        "Rest APIs"
-      ],
-      androidUrl:
-          "https://play.google.com/store/apps/details?id=com.tragofone.app&hl=en_IN",
-      category: "react native",
     ),
   ];
 

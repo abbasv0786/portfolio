@@ -10,7 +10,8 @@ import '../widgets/projects_section.dart';
 import '../widgets/experience_section.dart';
 import '../widgets/approach_section.dart';
 import '../widgets/contact_section.dart';
-import '../widgets/scroll_to_top_button.dart';
+import '../widgets/download_cv_button.dart';
+import '../widgets/scroll_to_top_button.dart' hide FloatingActionButton;
 import '../services/section_visibility_service.dart';
 import '../widgets/section_title_tracker.dart';
 
@@ -215,9 +216,17 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      floatingActionButton: ScrollToTopButton(
-        scrollController: _scrollController,
-        showThreshold: 300,
+      floatingActionButton: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          const DownloadCvButton(),
+          const SizedBox(height: 16),
+          ScrollToTopButton(
+            scrollController: _scrollController,
+            showThreshold: 300,
+          ),
+        ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );

@@ -167,8 +167,8 @@ class _ProjectCard extends StatelessWidget {
                       children: [
                         project.imageUrl.isNotEmpty
                             ? Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.vertical(
+                                decoration: const BoxDecoration(
+                                  borderRadius: BorderRadius.vertical(
                                     top: Radius.circular(16),
                                   ),
                                 ),

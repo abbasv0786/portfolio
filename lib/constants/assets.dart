@@ -18,4 +18,6 @@ class AppAssets {
   static const String tragofoneUrl = '${_imagesPath}image_tragofone.webp';
   static const String movieSuggesterUrl = '${_imagesPath}movie_suggester.jpeg';
   static const String ragChatBotUrl = '${_imagesPath}rag_chatbot.png';
+  static const String sspUrl = '${_imagesPath}image_ssp.webp';
+  static const String drBatraUrl = '${_imagesPath}image_dr_batra.webp';
 }
