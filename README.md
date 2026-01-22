@@ -252,18 +252,39 @@ class AppAnimations {
 
 ## 🚀 Deployment
 
-### Web Deployment
+### Web Deployment (GitHub Pages)
 
-1. **Build for production**
+This project is configured for deployment to GitHub Pages.
 
-   ```bash
-   flutter build web --release
-   ```
+1.  **Build for Production**:
+    **CRITICAL**: You must specify the `--base-href` to match your repository name.
 
-2. **Deploy to hosting**
-   - Netlify, Vercel, Firebase Hosting
-   - GitHub Pages, AWS S3
-   - Any static hosting service
+    ```bash
+    # Replace "/portfolio/" with "/your-repo-name/"
+    flutter build web --release --base-href "/portfolio/"
+    ```
+
+2.  **Deploy**:
+    The easiest way to deploy is to push the build artifacts to the `gh-pages` branch.
+
+    ```bash
+    cd build/web
+    git init
+    git add .
+    git commit -m "Deploy Update"
+    # Replace with your repository URL
+    git push -f https://github.com/abbasv0786/portfolio.git main:gh-pages
+    ```
+
+### Alternative: Automated Deployment (Peanut)
+
+You can also use the `peanut` package:
+
+```bash
+flutter pub global activate peanut
+peanut --extra-args "--base-href=/portfolio/"
+git push origin --force gh-pages
+```
 
 ### Mobile Deployment
 
@@ -307,11 +328,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Built with ❤️ using Flutter and modern web technologies**
 
-
-<!-- flutter build web --base-href="/portfolio/"
-git checkout gh-pages
-rm -rf *
-cp -r build/web/* .
-git add .
-git commit -m "Fix base href and redeploy"
-git push origin gh-pages --force -->
