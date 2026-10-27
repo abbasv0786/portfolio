@@ -118,8 +118,8 @@ class ThemeController extends GetxController {
       pageTransitionsTheme: isReducedMotion.value
           ? const PageTransitionsTheme(
               builders: {
-                TargetPlatform.android: CupertinoPageTransitionsBuilder(),
-                TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+                TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
+                TargetPlatform.iOS: FadeUpwardsPageTransitionsBuilder(),
               },
             )
           : null,

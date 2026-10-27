@@ -4,6 +4,8 @@ import '../constants/strings.dart';
 import '../constants/dimensions.dart';
 import '../constants/icons.dart';
 import '../constants/profile.dart';
+import '../services/firestore_service.dart';
+import 'app_image.dart';
 
 class PortfolioNavigationBar extends StatefulWidget {
   final int currentSection;
@@ -244,8 +246,9 @@ class PortfolioDrawer extends StatelessWidget {
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(40),
-                      child: Image.asset(
-                        ProfileConstants.profileImagePath,
+                      child: AppImage(
+                        FirestoreService.to.profileInfo.value.profileImageUrl,
+                        fallbackAsset: ProfileConstants.profileImagePath,
                         fit: BoxFit.contain,
                         errorBuilder: (context, error, stackTrace) {
                           return Container(

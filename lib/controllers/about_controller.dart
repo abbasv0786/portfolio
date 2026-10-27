@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import '../data/portfolio_data.dart';
 import '../models/about_card.dart';
 import '../models/tech_category.dart';
+import '../services/firestore_service.dart';
 
 class AboutController extends GetxController {
   final RxInt hoveredIndex = (-1).obs;
@@ -9,95 +9,31 @@ class AboutController extends GetxController {
   final RxDouble skillsAnimationProgress = 0.0.obs;
   final RxBool isProfileHovered = false.obs;
 
-  // Get about cards from PortfolioData
-  List<AboutCard> get aboutCards => PortfolioData.aboutCards;
+  // Get about cards dynamically from FirestoreService
+  List<AboutCard> get aboutCards {
+    if (Get.isRegistered<FirestoreService>()) {
+      final list = FirestoreService.to.aboutCards;
+      if (list.isNotEmpty) return list;
+    }
+    return [];
+  }
 
-  final RxList<TechCategory> techCategories = [
-    const TechCategory(
-      title: 'Frontend',
-      skills: [
-        'iOS',
-        'Swift',
-        'Flutter',
-        'Dart',
-        'Objective-C',
-        'Android',
-        'Cordova',
-        'React',
-        'React Native',
-        'HTML/CSS',
-        'JavaScript',
-        'Python',
-        'Kotlin (basic)',
-        'WebViews (Ionic, Cordova)',
-        'UI/UX integration',
-        '...and a range of other',
-      ],
-      color: 0xFF64FFDA,
-    ),
-    const TechCategory(
-      title: 'Backend',
-      skills: [
-        'Node.js',
-        'Python',
-        'Django',
-        'FastAPI',
-        'Firebase Functions',
-        'LLM APIs',
-        'REST APIs',
-        'Authentication & Authorization',
-        'Cloud Functions',
-        '...and a range of other',
-      ],
-      color: 0xFF7B68EE,
-    ),
-    const TechCategory(
-      title: 'Database',
-      skills: [
-        'Relational: PostgreSQL, MySQL',
-        'NoSQL: MongoDB, Firebase Realtime, Firestore',
-        'Vector: Pinecone',
-        'Data modeling & migrations',
-        'Offline Sync (Firebase)',
-        '...and a range of other',
-      ],
-      color: 0xFFFF6B6B,
-    ),
-    const TechCategory(
-      title: 'Tools & Others',
-      skills: [
-        'Git',
-        'Docker',
-        'AWS',
-        'Hubspot',
-        'Salesforce',
-        'CI/CD',
-        'SourceTree',
-        'Figma',
-        'InVision',
-        'Xcode',
-        'Android Studio',
-        'VS Code',
-        'n8n',
-        'Cursor',
-        'Firebase Crashlytics',
-        'App Store / Google Play Release Management',
-        'Agile / Scrum',
-        '...and a range of other',
-      ],
-      color: 0xFF4ECDC4,
-    ),
-  ].obs;
+  // Get tech categories dynamically from FirestoreService
+  RxList<TechCategory> get techCategories {
+    if (Get.isRegistered<FirestoreService>()) {
+      return FirestoreService.to.techCategories;
+    }
+    return <TechCategory>[].obs;
+  }
 
   // Methods
   void setCardHovered(int index, bool value) {
     hoveredIndex.value = value ? index : -1;
-    update();
   }
 
   void setProfileHovered(bool value) {
     isProfileHovered.value = value;
-    update();
+    update(['profile']);
   }
 
   void startSkillsAnimation() async {
@@ -116,10 +52,11 @@ class AboutController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    // Initialize hover states
-    for (var i = 0; i < aboutCards.length; i++) {
-      // cardHoverStates[i] = false; // This line is removed as per the new_code
+    if (Get.isRegistered<FirestoreService>()) {
+      ever(FirestoreService.to.aboutCards, (_) => update());
+      ever(FirestoreService.to.techCategories, (_) => update());
     }
+
     // Start skills animation
     Future.delayed(const Duration(milliseconds: 500), () {
       startSkillsAnimation();

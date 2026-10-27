@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
-import '../data/portfolio_data.dart';
+import '../models/experience.dart';
+import '../services/firestore_service.dart';
 
 class ExperienceController extends GetxController {
   // Hover states for experience cards
@@ -18,18 +19,23 @@ class ExperienceController extends GetxController {
   // Timeline animation
   final RxDouble timelineProgress = 0.0.obs;
 
-  // Using PortfolioData experiences instead of duplicating
-  get experiences => PortfolioData.experiences;
+  // Dynamic experiences from FirestoreService with fallback
+  List<Experience> get experiences {
+    if (Get.isRegistered<FirestoreService>()) {
+      final list = FirestoreService.to.experiences;
+      if (list.isNotEmpty) return list;
+    }
+    return [];
+  }
 
   // Methods
   void setCardHovered(int index, bool value) {
     cardHoverStates[index] = value;
-    update();
+    update(['exp-$index']);
   }
 
   void setCardPressed(int index, bool value) {
     cardPressedStates[index] = value;
-    update();
   }
 
   void selectExperience(int? index) {
@@ -71,13 +77,25 @@ class ExperienceController extends GetxController {
   void onInit() {
     super.onInit();
     // Initialize hover and pressed states
-    for (var i = 0; i < experiences.length; i++) {
-      cardHoverStates[i] = false;
-      cardPressedStates[i] = false;
+    _initStates();
+
+    if (Get.isRegistered<FirestoreService>()) {
+      ever(FirestoreService.to.experiences, (_) {
+        _initStates();
+        update();
+      });
     }
+
     // Start timeline animation
     Future.delayed(const Duration(milliseconds: 500), () {
       startTimelineAnimation();
     });
+  }
+
+  void _initStates() {
+    for (var i = 0; i < experiences.length; i++) {
+      cardHoverStates[i] = false;
+      cardPressedStates[i] = false;
+    }
   }
 }

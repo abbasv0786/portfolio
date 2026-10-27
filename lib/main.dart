@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 import 'constants/theme.dart';
 import 'controllers/app_controller.dart';
 import 'controllers/hero_controller.dart';
@@ -10,12 +12,14 @@ import 'controllers/about_controller.dart';
 import 'controllers/contact_controller.dart';
 import 'controllers/approach_controller.dart';
 import 'controllers/theme_controller.dart';
+import 'services/firestore_service.dart';
+import 'services/auth_service.dart';
 import 'routes/app_routes.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Set preferred orientations for web
+  // Set preferred orientations
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
@@ -23,13 +27,27 @@ void main() {
     DeviceOrientation.landscapeRight,
   ]);
 
-  // Initialize GetX controllers
-  _initializeControllers();
+  // Initialize Firebase with platform-specific options
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  } catch (e) {
+    debugPrint('Firebase initialization note: $e');
+  }
+
+  // Initialize GetX Services & Controllers
+  _initializeServicesAndControllers();
 
   runApp(const MyApp());
 }
 
-void _initializeControllers() {
+void _initializeServicesAndControllers() {
+  // Services first
+  Get.put(FirestoreService());
+  Get.put(AuthService());
+
+  // Controllers
   Get.put(AppController());
   Get.put(HeroSectionController());
   Get.put(ProjectsController());
@@ -46,7 +64,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'AhemadAbbas Vagh - Profile',
+      title: 'AhemadAbbas Vagh - Portfolio',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.darkTheme,
       initialRoute: AppRoutes.splash,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'dart:ui';
 import '../constants/colors.dart';
 import '../constants/animations.dart';
 
@@ -106,18 +105,15 @@ class _AnimatedGlassmorphismContainerState
       ),
       child: ClipRRect(
         borderRadius: widget.borderRadius ?? BorderRadius.zero,
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: widget.blur, sigmaY: widget.blur),
-          child: Container(
-            padding: widget.padding,
-            decoration: BoxDecoration(
-              color: (widget.color ?? AppColors.glassPrimary)
-                  .withValues(alpha: (widget.opacity * 255).round().toDouble()),
-              gradient: widget.gradient ?? AppColors.glassGradient,
-              borderRadius: widget.borderRadius,
-            ),
-            child: widget.child,
+        child: Container(
+          padding: widget.padding,
+          decoration: BoxDecoration(
+            color: (widget.color ?? AppColors.glassPrimary)
+                .withValues(alpha: (widget.opacity * 255).round().toDouble()),
+            gradient: widget.gradient ?? AppColors.glassGradient,
+            borderRadius: widget.borderRadius,
           ),
+          child: widget.child,
         ),
       ),
     );
@@ -132,11 +128,10 @@ class _AnimatedGlassmorphismContainerState
       container = MouseRegion(
         onEnter: (_) => _onHover(true),
         onExit: (_) => _onHover(false),
-        child: AnimatedContainer(
+        child: AnimatedScale(
           duration: const Duration(milliseconds: 200),
-          transform: Matrix4.identity()
-            ..scale(_isHovered ? widget.hoverScale : 1.0),
-          child: _buildGlassmorphismContainer(),
+          scale: _isHovered ? widget.hoverScale : 1.0,
+          child: container,
         ),
       );
     }
@@ -197,24 +192,21 @@ class GlassmorphismContainer extends StatelessWidget {
       margin: margin,
       child: ClipRRect(
         borderRadius: borderRadius ?? BorderRadius.circular(20),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
-          child: Container(
-            decoration: BoxDecoration(
-              color: color ??
-                  AppColors.glassBackground.withAlpha((opacity * 255).round()),
-              gradient: gradient ?? AppColors.glassGradient,
-              borderRadius: borderRadius ?? BorderRadius.circular(20),
-              border: border ??
-                  Border.all(
-                    color: AppColors.glassBorder,
-                    width: 1.5,
-                  ),
-              boxShadow: boxShadow ?? AppColors.glassShadowEffects,
-            ),
-            padding: padding,
-            child: child,
+        child: Container(
+          decoration: BoxDecoration(
+            color: color ??
+                AppColors.glassBackground.withAlpha((opacity * 255).round()),
+            gradient: gradient ?? AppColors.glassGradient,
+            borderRadius: borderRadius ?? BorderRadius.circular(20),
+            border: border ??
+                Border.all(
+                  color: AppColors.glassBorder,
+                  width: 1.5,
+                ),
+            boxShadow: boxShadow ?? AppColors.glassShadowEffects,
           ),
+          padding: padding,
+          child: child,
         ),
       ),
     );

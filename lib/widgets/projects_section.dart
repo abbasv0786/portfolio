@@ -10,6 +10,7 @@ import '../controllers/projects_controller.dart';
 import '../models/project.dart';
 import '../constants/typography.dart';
 import '../widgets/glassmorphism_container.dart';
+import 'app_image.dart';
 import 'section_header.dart';
 
 class ProjectsSection extends StatelessWidget {
@@ -176,11 +177,10 @@ class _ProjectCard extends StatelessWidget {
                                   borderRadius: const BorderRadius.vertical(
                                     top: Radius.circular(16),
                                   ),
-                                  child: Image.asset(
+                                  child: AppImage(
                                     project.imageUrl,
                                     width: double.infinity,
                                     height: double.infinity,
-                                    fit: BoxFit.cover,
                                   ),
                                 ),
                               )

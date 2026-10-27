@@ -36,7 +36,6 @@ class ExperienceSection extends StatelessWidget {
                         .map<Widget>((entry) {
                       final index = entry.key;
                       final experience = entry.value;
-                      final isHovered = controller.isCardHovered(index);
 
                       return MouseRegion(
                         onEnter: (_) => controller.setCardHovered(index, true),
@@ -48,10 +47,13 @@ class ExperienceSection extends StatelessWidget {
                               controller.setCardPressed(index, false),
                           onTapCancel: () =>
                               controller.setCardPressed(index, false),
-                          child: _ExperienceCard(
-                            experience: experience,
-                            index: index,
-                            isHovered: isHovered,
+                          child: GetBuilder<ExperienceController>(
+                            id: 'exp-$index',
+                            builder: (controller) => _ExperienceCard(
+                              experience: experience,
+                              index: index,
+                              isHovered: controller.isCardHovered(index),
+                            ),
                           ),
                         ),
                       ).animate().fadeIn(

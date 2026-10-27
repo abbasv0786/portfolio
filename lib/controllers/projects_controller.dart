@@ -1,8 +1,9 @@
 import 'package:get/get.dart';
-import '../data/portfolio_data.dart';
+import '../models/project.dart';
+import '../services/firestore_service.dart';
 
 class ProjectsController extends GetxController {
-  // Hover states for each project
+  // Hover and pressed states for each project
   final RxMap<String, bool> projectHoverStates = <String, bool>{}.obs;
   final RxMap<String, bool> projectPressedStates = <String, bool>{}.obs;
 
@@ -23,17 +24,24 @@ class ProjectsController extends GetxController {
   final RxBool isAnimating = false.obs;
   final RxDouble animationProgress = 0.0.obs;
 
-  // Using PortfolioData projects instead of duplicating
-  get projects => PortfolioData.projects;
+  // Reactive access to projects from FirestoreService
+  List<Project> get projects {
+    if (Get.isRegistered<FirestoreService>()) {
+      final list = FirestoreService.to.projects;
+      if (list.isNotEmpty) return list;
+    }
+    return [];
+  }
 
   // Filtered projects
-  List get filteredProjects {
+  List<Project> get filteredProjects {
+    final all = projects;
     if (selectedFilter.value == 'All') {
-      return projects;
+      return all;
     }
-    return projects
+    return all
         .where((project) =>
-            project.category.toLowerCase() ==
+            (project.category ?? '').toLowerCase() ==
             selectedFilter.value.toLowerCase())
         .toList();
   }
@@ -41,12 +49,10 @@ class ProjectsController extends GetxController {
   // Methods
   void setProjectHovered(String projectId, bool value) {
     projectHoverStates[projectId] = value;
-    update();
   }
 
   void setProjectPressed(String projectId, bool value) {
     projectPressedStates[projectId] = value;
-    update();
   }
 
   void selectProject(int? index) {
@@ -61,22 +67,15 @@ class ProjectsController extends GetxController {
   }
 
   void _animateFilterChange() async {
+    // AnimatedOpacity interpolates between these, so only 3 rebuilds needed
     isAnimating.value = true;
+    animationProgress.value = 0.0;
     update();
+    await Future.delayed(const Duration(milliseconds: 150));
 
-    // Fade out
-    for (double i = 1.0; i >= 0.0; i -= 0.1) {
-      animationProgress.value = i;
-      update();
-      await Future.delayed(const Duration(milliseconds: 20));
-    }
-
-    // Fade in
-    for (double i = 0.0; i <= 1.0; i += 0.1) {
-      animationProgress.value = i;
-      update();
-      await Future.delayed(const Duration(milliseconds: 20));
-    }
+    animationProgress.value = 1.0;
+    update();
+    await Future.delayed(const Duration(milliseconds: 250));
 
     isAnimating.value = false;
     update();
@@ -93,10 +92,27 @@ class ProjectsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    // Initialize hover states
-    for (var project in projects) {
-      projectHoverStates[project.title] = false;
-      projectPressedStates[project.title] = false;
+    // Reactively update filters and hover states when projects change in Firestore
+    if (Get.isRegistered<FirestoreService>()) {
+      ever(FirestoreService.to.projects, (List<Project> projectList) {
+        _syncDynamicFilters(projectList);
+        for (var project in projectList) {
+          projectHoverStates[project.title] = false;
+          projectPressedStates[project.title] = false;
+        }
+        update();
+      });
+      _syncDynamicFilters(FirestoreService.to.projects);
     }
+  }
+
+  void _syncDynamicFilters(List<Project> projectList) {
+    final categories = <String>{'All'};
+    for (var p in projectList) {
+      if (p.category != null && p.category!.trim().isNotEmpty) {
+        categories.add(p.category!.trim());
+      }
+    }
+    filters.assignAll(categories.toList());
   }
 }

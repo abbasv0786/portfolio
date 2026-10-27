@@ -8,7 +8,9 @@ import '../constants/strings.dart';
 import '../constants/typography.dart';
 import '../constants/profile.dart';
 import '../controllers/about_controller.dart';
+import '../services/firestore_service.dart';
 import '../widgets/glassmorphism_container.dart';
+import 'app_image.dart';
 
 class ProfileSection extends StatelessWidget {
   const ProfileSection({super.key});
@@ -35,6 +37,7 @@ class ProfileSection extends StatelessWidget {
         : ProfileConstants.profileImageHeightDesktop;
 
     return GetBuilder<AboutController>(
+      id: 'profile',
       builder: (controller) => MouseRegion(
         cursor: SystemMouseCursors.click,
         onEnter: (_) => controller.setProfileHovered(true),
@@ -124,19 +127,20 @@ class ProfileSection extends StatelessWidget {
             ),
             // Profile image
             Center(
-              child: Image.asset(
-                ProfileConstants.profileImagePath,
-                fit: BoxFit.contain,
-                width: imageWidth,
-                height: imageHeight,
-                errorBuilder: (context, error, stackTrace) {
-                  return Icon(
-                    Icons.person,
-                    size: imageWidth * 0.4,
-                    color: AppColors.textPrimary.withAlpha(200),
-                  );
-                },
-              ),
+              child: Obx(() => AppImage(
+                    FirestoreService.to.profileInfo.value.profileImageUrl,
+                    fallbackAsset: ProfileConstants.profileImagePath,
+                    fit: BoxFit.contain,
+                    width: imageWidth,
+                    height: imageHeight,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Icon(
+                        Icons.person,
+                        size: imageWidth * 0.4,
+                        color: AppColors.textPrimary.withAlpha(200),
+                      );
+                    },
+                  )),
             ),
           ],
         ),

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:portfolio/data/portfolio_data.dart';
 import '../constants/colors.dart';
 import '../constants/strings.dart';
+import '../controllers/hero_controller.dart';
+import '../services/firestore_service.dart';
 import '../widgets/enhanced_footer.dart';
 import '../widgets/navigation_bar.dart';
 import '../widgets/hero_section.dart';
@@ -49,6 +52,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _onScroll() {
+    // Pause the hero's looping animations once it's scrolled out of view
+    Get.find<HeroSectionController>().setHeroVisible(
+        _scrollController.offset < MediaQuery.of(context).size.height);
+
     // Use the visibility service to determine which section is currently visible
     final visibleSection = SectionVisibilityService.getVisibleSection(context);
 
@@ -148,23 +155,37 @@ class _HomeScreenState extends State<HomeScreen> {
                 controller: _scrollController,
                 child: Column(
                   children: [
-                    // Hero Section
-                    HeroSection(
-                      key: _heroKey,
-                      name: AppStrings.heroName,
-                      title: AppStrings.heroTitle,
-                      subtitle: AppStrings.heroSubtitle,
-                      description: AppStrings.heroDescription,
-                      onScrollDownPressed: _scrollToAbout,
-                      onContactPressed: () => _scrollToSection(4),
-                    ),
+                    // Hero Section (isolated: it animates continuously)
+                    RepaintBoundary(child: Obx(() {
+                      final profile = Get.isRegistered<FirestoreService>()
+                          ? FirestoreService.to.profileInfo.value
+                          : null;
+                      return HeroSection(
+                        key: _heroKey,
+                        name: (profile?.name.isNotEmpty == true)
+                            ? profile!.name
+                            : AppStrings.heroName,
+                        title: (profile?.title.isNotEmpty == true)
+                            ? profile!.title
+                            : AppStrings.heroTitle,
+                        subtitle: (profile?.subtitle.isNotEmpty == true)
+                            ? profile!.subtitle
+                            : AppStrings.heroSubtitle,
+                        description: (profile?.description.isNotEmpty == true)
+                            ? profile!.description
+                            : AppStrings.heroDescription,
+                        onScrollDownPressed: _scrollToAbout,
+                        onContactPressed: () => _scrollToSection(4),
+                      );
+                    })),
 
                     // About Section
                     SectionTitleTracker(
                       sectionId: 'about',
                       title: 'About',
                       sectionKey: _aboutKey,
-                      child: AboutSection(key: _aboutKey),
+                      child:
+                          RepaintBoundary(child: AboutSection(key: _aboutKey)),
                     ),
 
                     // Projects Section
@@ -172,7 +193,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       sectionId: 'projects',
                       title: 'Projects',
                       sectionKey: _projectsKey,
-                      child: ProjectsSection(key: _projectsKey),
+                      child: RepaintBoundary(
+                          child: ProjectsSection(key: _projectsKey)),
                     ),
 
                     // Experience Section
@@ -180,7 +202,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       sectionId: 'experience',
                       title: 'Experience',
                       sectionKey: _experienceKey,
-                      child: ExperienceSection(key: _experienceKey),
+                      child: RepaintBoundary(
+                          child: ExperienceSection(key: _experienceKey)),
                     ),
 
                     // Approach Section
@@ -188,7 +211,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       sectionId: 'approach',
                       title: 'Approach',
                       sectionKey: _approachKey,
-                      child: ApproachSection(key: _approachKey),
+                      child: RepaintBoundary(
+                          child: ApproachSection(key: _approachKey)),
                     ),
 
                     // Contact Section
@@ -196,19 +220,39 @@ class _HomeScreenState extends State<HomeScreen> {
                       sectionId: 'contact',
                       title: 'Contact',
                       sectionKey: _contactKey,
-                      child: ContactSection(key: _contactKey),
+                      child: RepaintBoundary(
+                          child: ContactSection(key: _contactKey)),
                     ),
 
                     // Footer
-                    const EnhancedFooter(
-                      email: PortfolioData.email,
-                      whatsapp: PortfolioData.whatsapp,
-                      discord: PortfolioData.discord,
-                      telegram: PortfolioData.telegram,
-                      linkedin: PortfolioData.linkedin,
-                      twitter: PortfolioData.twitter,
-                      instagram: PortfolioData.instagram,
-                    ),
+                    Obx(() {
+                      final profile = Get.isRegistered<FirestoreService>()
+                          ? FirestoreService.to.profileInfo.value
+                          : null;
+                      return EnhancedFooter(
+                        email: (profile?.email.isNotEmpty == true)
+                            ? profile!.email
+                            : PortfolioData.email,
+                        whatsapp: (profile?.whatsapp.isNotEmpty == true)
+                            ? profile!.whatsapp
+                            : PortfolioData.whatsapp,
+                        discord: (profile?.discord.isNotEmpty == true)
+                            ? profile!.discord
+                            : PortfolioData.discord,
+                        telegram: (profile?.telegram.isNotEmpty == true)
+                            ? profile!.telegram
+                            : PortfolioData.telegram,
+                        linkedin: (profile?.linkedin.isNotEmpty == true)
+                            ? profile!.linkedin
+                            : PortfolioData.linkedin,
+                        twitter: (profile?.twitter.isNotEmpty == true)
+                            ? profile!.twitter
+                            : PortfolioData.twitter,
+                        instagram: (profile?.instagram.isNotEmpty == true)
+                            ? profile!.instagram
+                            : PortfolioData.instagram,
+                      );
+                    }),
                   ],
                 ),
               ),
@@ -221,7 +265,7 @@ class _HomeScreenState extends State<HomeScreen> {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           const DownloadCvButton(),
-          const SizedBox(height: 16),
+          const SizedBox(height: 12),
           ScrollToTopButton(
             scrollController: _scrollController,
             showThreshold: 300,

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
-import 'dart:ui';
 import '../constants/colors.dart';
 import '../constants/animations.dart';
 
@@ -96,25 +95,22 @@ class _GlassmorphismCardState extends State<GlassmorphismCard>
       margin: widget.margin,
       child: ClipRRect(
         borderRadius: widget.borderRadius ?? BorderRadius.circular(20),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: widget.blur, sigmaY: widget.blur),
-          child: Container(
-            decoration: BoxDecoration(
-              color: widget.color ??
-                  AppColors.glassBackground
-                      .withAlpha((widget.opacity * 255).round()),
-              gradient: widget.gradient ?? AppColors.glassGradient,
-              borderRadius: widget.borderRadius ?? BorderRadius.circular(20),
-              border: widget.border ??
-                  Border.all(
-                    color: AppColors.glassBorder,
-                    width: 1.5,
-                  ),
-              boxShadow: widget.boxShadow ?? AppColors.glassShadowEffects,
-            ),
-            padding: widget.padding,
-            child: widget.child,
+        child: Container(
+          decoration: BoxDecoration(
+            color: widget.color ??
+                AppColors.glassBackground
+                    .withAlpha((widget.opacity * 255).round()),
+            gradient: widget.gradient ?? AppColors.glassGradient,
+            borderRadius: widget.borderRadius ?? BorderRadius.circular(20),
+            border: widget.border ??
+                Border.all(
+                  color: AppColors.glassBorder,
+                  width: 1.5,
+                ),
+            boxShadow: widget.boxShadow ?? AppColors.glassShadowEffects,
           ),
+          padding: widget.padding,
+          child: widget.child,
         ),
       ),
     );

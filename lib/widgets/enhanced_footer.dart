@@ -182,7 +182,9 @@ class EnhancedFooter extends StatelessWidget {
         // Contact Info
         _buildContactItem(Icons.email, email, 'Email', controller),
         const SizedBox(height: 12),
-        _buildContactItem(Icons.location_on, 'India', 'Location', controller),
+        _buildContactItem(Icons.phone, '+91 97149 07429', 'Phone', controller),
+        const SizedBox(height: 12),
+        _buildContactItem(Icons.location_on, 'India (Remote, Worldwide)', 'Location', controller),
         const SizedBox(height: 12),
         _buildContactItem(
             Icons.work, 'Available for opportunities', 'Status', controller),
@@ -202,6 +204,7 @@ class EnhancedFooter extends StatelessWidget {
           }
         },
         child: GetBuilder<AppController>(
+            id: 'contact_$label',
             builder: (controller) => AnimatedContainer(
                   duration: AppAnimations.hoverDuration,
                   padding:
@@ -307,7 +310,7 @@ class EnhancedFooter extends StatelessWidget {
   }
 
   Widget _buildSocialIcon(
-      IconData icon, String platform, String url, AppController controller) {
+      FaIconData icon, String platform, String url, AppController controller) {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       onEnter: (_) => controller.setSocialHoverState(platform, true),
@@ -317,6 +320,7 @@ class EnhancedFooter extends StatelessWidget {
           _launchUrl(_getPlatformUrl(platform, url));
         },
         child: GetBuilder<AppController>(
+            id: 'social_$platform',
             builder: (controller) => AnimatedContainer(
                   duration: AppAnimations.hoverDuration,
                   padding: const EdgeInsets.all(16),

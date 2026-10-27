@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import '../services/firestore_service.dart';
 
 class ContactController extends GetxController {
   // Form fields
@@ -16,8 +17,6 @@ class ContactController extends GetxController {
   final RxBool isSubmitted = false.obs;
   final RxBool hasError = false.obs;
   final RxString errorMessage = ''.obs;
-
-  // Removed unused animation states - form is always visible
 
   // Methods
   void setName(String value) {
@@ -47,7 +46,7 @@ class ContactController extends GetxController {
   }
 
   void validateMessage() {
-    isMessageValid.value = message.value.trim().length >= 10;
+    isMessageValid.value = message.value.trim().length >= 5;
     update();
   }
 
@@ -69,16 +68,23 @@ class ContactController extends GetxController {
     update();
 
     try {
-      // Simulate API call
-      await Future.delayed(const Duration(seconds: 2));
+      if (Get.isRegistered<FirestoreService>()) {
+        await FirestoreService.to.saveContactMessage(
+          name: name.value.trim(),
+          email: email.value.trim(),
+          message: message.value.trim(),
+        );
+      } else {
+        await Future.delayed(const Duration(seconds: 1));
+      }
 
       // Success
       isSubmitted.value = true;
       update();
       clearForm();
 
-      // Reset success state after 3 seconds
-      Future.delayed(const Duration(seconds: 3), () {
+      // Reset success state after 4 seconds
+      Future.delayed(const Duration(seconds: 4), () {
         isSubmitted.value = false;
         update();
       });
@@ -100,6 +106,4 @@ class ContactController extends GetxController {
     isEmailValid.value = true;
     isMessageValid.value = true;
   }
-
-  // Removed unused animation methods - form is always visible
 }

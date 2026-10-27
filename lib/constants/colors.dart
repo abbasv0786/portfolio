@@ -22,6 +22,7 @@ class AppColors {
   static const Color background = Color(0xFF0A0A0A);
   static const Color backgroundSecondary = Color(0xFF1A1A2E);
   static const Color backgroundTertiary = Color(0xFF16213E);
+  static const Color backgroundCard = Color(0xFF161626);
   static const Color backgroundWithOpacity = Color(0x1A1A1A2E);
   static const Color surface = Color(0xFF1E1E2E);
   static const Color surfaceVariant = Color(0xFF16213E);
@@ -161,12 +162,6 @@ class AppColors {
       spreadRadius: 0,
       offset: Offset(0, 10),
     ),
-    BoxShadow(
-      color: glassBorder,
-      blurRadius: 1,
-      spreadRadius: 0,
-      offset: Offset(0, 0),
-    ),
   ];
 
   static const List<BoxShadow> glassShadowLight = [
@@ -184,12 +179,6 @@ class AppColors {
       blurRadius: 30,
       spreadRadius: 0,
       offset: Offset(0, 15),
-    ),
-    BoxShadow(
-      color: glassBorder,
-      blurRadius: 2,
-      spreadRadius: 0,
-      offset: Offset(0, 0),
     ),
   ];
 

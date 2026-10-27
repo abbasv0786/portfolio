@@ -5,6 +5,7 @@ class RouteNames {
   // Main routes
   static const String splash = '/';
   static const String home = '/ahemadabbas-vagh';
+  static const String admin = '/admin';
 
   // Future routes (for potential expansion)
   static const String about = '/about';

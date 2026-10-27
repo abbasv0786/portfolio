@@ -24,7 +24,7 @@ class AppController extends GetxController {
   // Methods to update hover states
   void setHoverState(String key, bool value) {
     hoverStates[key] = value;
-    update();
+    update([key]);
   }
 
   void setPressedState(String key, bool value) {
@@ -34,7 +34,7 @@ class AppController extends GetxController {
 
   void setSocialHoverState(String platform, bool value) {
     socialHoverStates[platform] = value;
-    update();
+    update(['social_$platform']);
   }
 
   // Removed duplicate hover state methods - each section controller manages its own state

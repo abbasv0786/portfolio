@@ -16,43 +16,44 @@ class AppStrings {
 
   // Hero Section
   static const String heroName = 'AhemadAbbas Vagh';
-  static const String heroTitle = 'Sr. Software Engineer';
+  static const String heroTitle =
+      'Senior Software Engineer | Forward Deployed Engineering · Python · JavaScript · SQL · AI-Native Platforms';
   static const String heroSubtitle =
-      'Engineering intelligent digital experiences through code, data, and innovation.';
+      'Driving end-to-end implementation delivery for AI-native platforms — scoping complex integrations, debugging deep technical issues, and shipping production code in Python, JavaScript & SQL.';
   static const String heroDescription =
-      'I’m a results-driven software engineer passionate about building robust, scalable applications that solve real-world problems. I specialize in turning complex technical challenges into clean, efficient, and user-centric software solutions that drive business growth and elevate user experience.';
+      'I\'m a hands-on engineer with 8+ years of experience building and deploying production software across AI, web, and mobile platforms. I lead technical discovery, translate ambiguous customer requirements into scoped deliverables, and ship robust integration code. I debug complex systems end-to-end, architect implementation approaches, and collaborate cross-functionally with Product, Engineering, and Customer Success to drive successful launches.';
   static const String heroShareWork = 'Discover More';
-  static const String heroContactMe = 'Let’s Collaborate';
+  static const String heroContactMe = 'Let\'s Collaborate';
   static const String heroScrollDown = 'Scroll Down';
 
   // Typing Animation Words
   static const List<String> heroTypingWords = [
-    'AI/ML Engineer',
-    'Mobile App Engineer',
-    'Cross-Platform Solutions Expert',
-    'Problem Solver',
-    'Tech Enthusiast',
+    'Forward Deployed Engineer',
+    'Implementation & Integration Lead',
+    'Python / JavaScript / SQL Developer',
+    'AI-Native Platform Specialist',
+    'Cross-Functional Technical Leader',
   ];
 
   // About Section
   static const String aboutTitle = 'About Me';
   static const String aboutSubtitle = 'Get to know me better';
   static const String aboutDescription =
-      'Tech-driven developer with a strong passion for AI/ML and software innovation. Actively building intelligent solutions and always seeking new challenges to grow and create impact.';
+      'Senior Software Engineer specializing in forward-deployed engineering — driving planning, scoping, and delivery of complex AI-native platform implementations. Proven ability to lead technical discovery, debug deep integration issues, and influence architectural decisions. Hands-on coder in Python, JavaScript, and SQL with strong client-facing communication and cross-functional leadership.';
 
   // About Cards
-  static const String aboutCard1Title = 'Client Collaboration';
+  static const String aboutCard1Title = 'Customer-Facing Delivery';
   static const String aboutCard1Description =
-      'I prioritize client collaboration, fostering open communication and transparency throughout every project.';
-  static const String aboutCard2Title = 'Timezone Flexibility';
+      'I lead technical discovery calls, translate ambiguous requirements into actionable stories, and build lasting trust with customer stakeholders through transparent communication.';
+  static const String aboutCard2Title = 'Cross-Functional Leadership';
   static const String aboutCard2Description =
-      'I\'m very flexible with time zone communications, ensuring seamless global collaboration.';
+      'I coordinate across Product, Engineering, Customer Success, and Marketing — driving alignment, managing concurrent customer timelines, and ensuring launch readiness.';
   static const String aboutCard3Title = 'Continuous Improvement';
   static const String aboutCard3Description =
-      'I constantly try to improve my skills and stay updated with the latest technologies.';
-  static const String aboutCard4Title = 'Tech Enthusiast';
+      'I create and own delivery playbooks, onboarding processes, internal training, and technical mentorship — driving best-in-class engineering practices and knowledge sharing.';
+  static const String aboutCard4Title = 'First Principles Thinker';
   static const String aboutCard4Description =
-      'Tech enthusiast with a passion for development and innovation.';
+      'I think from first principles, propose architectural decisions optimized for product strengths, and drive feature improvements based on real-world deployment learnings.';
   static const String techStackTitle = 'MY TECH STACK';
   static const String aboutProjectInvitation =
       'Do you want to start a project together?';
@@ -73,15 +74,15 @@ class AppStrings {
   // Approach Section
   static const String approachTitle = 'My approach';
   static const String approachSubtitle = 'How I work and deliver results';
-  static const String approachPhase1Title = 'Planning & Strategy';
+  static const String approachPhase1Title = 'Discovery & Scoping';
   static const String approachPhase1Description =
-      'We\'ll collaborate to map out your goals, key functionalities and target audience.';
-  static const String approachPhase2Title = 'Development & Progress Update';
+      'Lead technical discovery calls with customers — translate ambiguous requirements into scoped stories, anticipate blockers, and build implementation roadmaps aligned with product strengths.';
+  static const String approachPhase2Title = 'Implementation & Integration';
   static const String approachPhase2Description =
-      'Once we agree on the plan I will start coding and keeping you updated on every step of the way.';
-  static const String approachPhase3Title = 'Development & Launch';
+      'Write and debug production integration code in Python, JavaScript, and SQL. Design robust solutions tailored to client-specific constraints. Manage timelines, escalate issues, and ensure launch readiness.';
+  static const String approachPhase3Title = 'Launch & Feedback Loop';
   static const String approachPhase3Description =
-      'Based on the design, I\'ll translate everything into functional code, building the software ground up.';
+      'Drive successful deployments, communicate findings clearly to stakeholders, and influence product roadmap priorities through structured, data-driven feedback from real-world deployments.';
 
   // Contact Section
   static const String contactTitle = 'Let\'s talk';
@@ -119,11 +120,11 @@ class AppStrings {
   static const String contactInfoDiscordTitle = 'Discord';
   static const String contactInfoTelegramTitle = 'Telegram';
   static const String contactInfoLocationTitle = 'Location';
-  static const String contactInfoPhone = '+91 98765 43210';
-  static const String contactInfoEmail = 'ahemadabbasavagh@gmail.com';
-  static const String contactInfoWhatsApp = '+91 98765 43210';
-  static const String contactInfoDiscord = 'ahemadabbas#1234';
-  static const String contactInfoTelegram = '@ahemadabbas';
+  static const String contactInfoPhone = '+91 97149 07429';
+  static const String contactInfoEmail = 'abbasv0786@gmail.com';
+  static const String contactInfoWhatsApp = '+91 97149 07429';
+  static const String contactInfoDiscord = 'abbasv786';
+  static const String contactInfoTelegram = '@AbbasV0786';
   static const String contactCTATitle = 'Let\'s Work Together';
   static const String contactCTADescription =
       'Ready to start your next project? I\'m here to help bring your ideas to life.';
@@ -137,10 +138,10 @@ class AppStrings {
   static const String aboutName = heroName;
   static const String aboutRole = heroTitle;
   static const String aboutBio =
-      'Driven by a passion for innovation, I craft smart digital solutions and seamless user experiences that deliver real value.';
+      'Senior Software Engineer with 8+ years of experience driving end-to-end implementation delivery for AI-native platforms. I lead technical discovery, debug complex integrations, write production code in Python/JavaScript/SQL, and influence architectural decisions — collaborating cross-functionally with Product, Engineering, and Customer Success to ship successfully.';
 
   // Navigation
-  static const String navFullStackDeveloper = 'Software Engineer';
+  static const String navFullStackDeveloper = 'Forward Deployed Engineer';
   static const String navCloseMenu = 'Close menu';
 
   // Splash Screen

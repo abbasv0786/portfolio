@@ -76,6 +76,7 @@ class HeroSection extends StatelessWidget {
 
                     // Typing animation for title
                     GetBuilder<HeroSectionController>(
+                        id: 'typing',
                         builder: (controller) => SizedBox(
                               height: AppTypography.headingLarge(context)
                                       .fontSize! *
@@ -150,6 +151,7 @@ class HeroSection extends StatelessWidget {
                           onEnter: (_) => controller.setShareWorkHovered(true),
                           onExit: (_) => controller.setShareWorkHovered(false),
                           child: GetBuilder<HeroSectionController>(
+                              id: 'shareWork',
                               builder: (controller) => AnimatedBuilder(
                                     animation: controller.pulseAnimation,
                                     builder: (context, child) {
@@ -230,6 +232,7 @@ class HeroSection extends StatelessWidget {
                               ),
                               const SizedBox(height: 8),
                               GetBuilder<HeroSectionController>(
+                                  id: 'scrollDown',
                                   builder: (controller) => Icon(
                                         Icons.keyboard_arrow_down,
                                         color:
@@ -268,39 +271,41 @@ class HeroSection extends StatelessWidget {
 
   Widget _buildParticle(
       int index, Size size, HeroSectionController controller) {
-    return GetBuilder<HeroSectionController>(builder: (controller) {
-      final offset = controller.parallaxOffset.value;
-      final mouseX = controller.mouseX.value;
-      final mouseY = controller.mouseY.value;
+    return GetBuilder<HeroSectionController>(
+        id: 'particles',
+        builder: (controller) {
+          final offset = controller.parallaxOffset.value;
+          final mouseX = controller.mouseX.value;
+          final mouseY = controller.mouseY.value;
 
-      return Positioned(
-        left: (size.width * (0.1 + index * 0.2)) +
-            (mouseX * 0.02 * index) +
-            offset,
-        top: (size.height * (0.1 + index * 0.15)) + (mouseY * 0.02 * index),
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 300),
-          width: 100 + (index * 20),
-          height: 100 + (index * 20),
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            gradient: RadialGradient(
-              colors: [
-                AppColors.primary.withAlpha(20 - (index * 3)),
-                AppColors.secondary.withAlpha(10 - (index * 2)),
-                Colors.transparent,
-              ],
-            ),
-          ),
-        )
-            .animate()
-            .fadeIn(delay: Duration(milliseconds: 500 + (index * 200)))
-            .scale(
-              begin: const Offset(0, 0),
-              end: const Offset(1, 1),
-              duration: const Duration(seconds: 1),
-            ),
-      );
-    });
+          return Positioned(
+            left: (size.width * (0.1 + index * 0.2)) +
+                (mouseX * 0.02 * index) +
+                offset,
+            top: (size.height * (0.1 + index * 0.15)) + (mouseY * 0.02 * index),
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
+              width: 100 + (index * 20),
+              height: 100 + (index * 20),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: RadialGradient(
+                  colors: [
+                    AppColors.primary.withAlpha(20 - (index * 3)),
+                    AppColors.secondary.withAlpha(10 - (index * 2)),
+                    Colors.transparent,
+                  ],
+                ),
+              ),
+            )
+                .animate()
+                .fadeIn(delay: Duration(milliseconds: 500 + (index * 200)))
+                .scale(
+                  begin: const Offset(0, 0),
+                  end: const Offset(1, 1),
+                  duration: const Duration(seconds: 1),
+                ),
+          );
+        });
   }
 }

@@ -1,0 +1,20 @@
+{
+  "firestore": {
+    "database": "(default)",
+    "location": "nam5",
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "flutter": {
+    "platforms": {
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "av-portfolio-2026",
+          "configurations": {
+            "web": "1:499295447786:web:e4fd4053d2599498d3c593"
+          }
+        }
+      }
+    }
+  }
+}

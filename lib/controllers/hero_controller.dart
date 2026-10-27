@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio/constants/strings.dart';
 
+import '../services/firestore_service.dart';
+
 class HeroSectionController extends GetxController
     with GetTickerProviderStateMixin {
   // Animation controllers
@@ -25,8 +27,15 @@ class HeroSectionController extends GetxController
   final RxInt currentWordIndex = 0.obs;
   final RxBool isTyping = false.obs;
   bool _isDisposed = false;
+  bool _paused = false;
 
-  final List<String> typingWords = AppStrings.heroTypingWords;
+  List<String> get typingWords {
+    if (Get.isRegistered<FirestoreService>()) {
+      final words = FirestoreService.to.profileInfo.value.typingWords;
+      if (words.isNotEmpty) return words;
+    }
+    return AppStrings.heroTypingWords;
+  }
 
   @override
   void onInit() {
@@ -67,16 +76,27 @@ class HeroSectionController extends GetxController
 
   void _startTypingAnimation() async {
     while (!_isDisposed) {
-      final word = typingWords[currentWordIndex.value];
+      // Don't animate while the hero is scrolled out of view
+      if (_paused) {
+        await Future.delayed(const Duration(milliseconds: 300));
+        continue;
+      }
+      final words = typingWords;
+      if (words.isEmpty) {
+        await Future.delayed(const Duration(milliseconds: 500));
+        continue;
+      }
+      final safeIndex = currentWordIndex.value % words.length;
+      final word = words[safeIndex];
 
       // Typing effect
       if (_isDisposed) break;
       isTyping.value = true;
-      update();
+      update(['typing']);
       for (int i = 0; i <= word.length; i++) {
         if (_isDisposed) break;
         currentTypingText.value = word.substring(0, i);
-        update();
+        update(['typing']);
         await Future.delayed(const Duration(milliseconds: 100));
       }
 
@@ -88,13 +108,13 @@ class HeroSectionController extends GetxController
       for (int i = word.length; i >= 0; i--) {
         if (_isDisposed) break;
         currentTypingText.value = word.substring(0, i);
-        update();
+        update(['typing']);
         await Future.delayed(const Duration(milliseconds: 50));
       }
 
       if (_isDisposed) break;
       isTyping.value = false;
-      update();
+      update(['typing']);
       await Future.delayed(const Duration(milliseconds: 500));
 
       // Move to next word
@@ -108,31 +128,44 @@ class HeroSectionController extends GetxController
     if (_isDisposed) return;
     mouseX.value = x;
     mouseY.value = y;
-    update();
+    update(['particles']);
   }
 
   void updateParallaxOffset(double offset) {
     if (_isDisposed) return;
     parallaxOffset.value = offset;
-    update();
+    update(['particles']);
   }
 
   void setShareWorkHovered(bool value) {
     if (_isDisposed) return;
     isShareWorkHovered.value = value;
-    update();
+    update(['shareWork']);
   }
 
   void setEmailHovered(bool value) {
     if (_isDisposed) return;
     isEmailHovered.value = value;
-    update();
+    update(['email']);
   }
 
   void setScrollDownHovered(bool value) {
     if (_isDisposed) return;
     isScrollDownHovered.value = value;
-    update();
+    update(['scrollDown']);
+  }
+
+  /// Stops looping animations while the hero is off-screen.
+  void setHeroVisible(bool visible) {
+    if (_isDisposed || _paused == !visible) return;
+    _paused = !visible;
+    if (visible) {
+      floatingAnimationController.repeat(reverse: true);
+      pulseAnimationController.repeat();
+    } else {
+      floatingAnimationController.stop();
+      pulseAnimationController.stop();
+    }
   }
 
   @override

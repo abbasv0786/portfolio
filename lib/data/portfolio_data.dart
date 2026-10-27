@@ -8,10 +8,11 @@ class PortfolioData {
   // ===== PERSONAL INFORMATION =====
   // Using AppStrings instead of duplicating
   static const String name = AppStrings.heroName;
-  static const String title = AppStrings.heroTitle;
+  static const String title =
+      'Senior Software Engineer | Forward Deployed Engineering · Python · JavaScript · SQL · AI-Native Platforms';
   static const String subtitle = AppStrings.heroSubtitle;
   static const String tagline =
-      "Transforming concepts into seamless user experiences";
+      "Driving complex implementations from discovery to launch";
   static const String description = AppStrings.heroDescription;
   static const String location = 'Remote, Worldwide';
   static const String availability = "Available for new opportunities";
@@ -31,31 +32,40 @@ class PortfolioData {
 
   static const String portfolioName = 'AhemadAbbas A Vagh';
   static const String footerDescription =
-      'Passionate developer creating innovative digital solutions. Let\'s build something amazing together.';
+      'Passionate engineer driving complex implementations and building production-ready solutions. Let\'s build something amazing together.';
 
   static const String footerCopyright =
-      '© 2025 AhemadAbbas Vagh. All rights reserved.';
+      '© 2026 AhemadAbbas Vagh. All rights reserved.';
 
-  // ===== TECHNICAL SKILLS =====
   // ===== TECHNICAL SKILLS =====
   // Skills are managed directly in AboutController's techCategories
 
   // ===== CV DATA =====
-  // ===== CV DATA =====
   static const String cvProfessionalSummary =
-      "Experienced mobile app developer with expertise in developing cross-platform apps using React Native, Flutter, iOS, and Cordova. Proficient in JavaScript, Dart, Swift, and Objective-C with a strong focus on creating user-friendly and intuitive interfaces. Skilled in performance optimization and using tools such as Firebase to enhance app functionality. Proven track record of delivering scalable solutions and leading technical teams.";
+      "Senior Software Engineer with 8+ years of experience driving end-to-end implementation delivery for complex AI-native platforms. Proven track record leading technical discovery, scoping complex integrations, debugging deep integration issues, and shipping production code in Python, JavaScript, and SQL. Experienced architecting implementation approaches optimized for product strengths, managing concurrent customer timelines, and collaborating cross-functionally with Product, Engineering, Customer Success, and Product Marketing. Strong communicator who translates ambiguous requirements into actionable stories, influences roadmap priorities through structured data-driven feedback, and mentors engineering teams on delivery best practices. Hands-on coder with deep expertise across multiple product domains, including fintech, insurance, and enterprise SaaS.";
 
   static const List<String> cvSkills = [
-    'Mobile Development: Flutter (Expert), iOS (Expert), React Native (Intermediate), Cordova (Intermediate), Dart (Expert), Swift (Expert), Objective-C (Intermediate), JavaScript (Expert)',
-    'Backend & Cloud: Node.js, Firebase (Expert), REST APIs, Python',
-    'AI & ML: Generative AI, LLM Integration, LangChain, OpenAI API',
-    'Tools & Methodologies: Git, CI/CD, Agile, Scrum, Jira, Xcode, Android Studio'
+    'Languages & Frameworks: Python, JavaScript/TypeScript, SQL, Dart/Flutter, FastAPI, React, Node.js',
+    'AI & Integration: LangChain, LangGraph, RAG Pipelines, Azure AI Search, Azure Document Intelligence, Agentic AI Workflows, Conversational AI, Vector Search',
+    'Databases & Storage: PostgreSQL, SQL Server, MongoDB, Firestore, SQLite, Pinecone (Vector DB), Azure Blob Storage',
+    'API & Integration: RESTful APIs, GraphQL, Retrofit/Dio, WebSockets, OAuth 2.0/JWT, Swagger/OpenAPI, Interceptor-Driven Auth & Error Handling',
+    'Testing & Quality: Unit Tests, Widget Tests, Integration Tests, Golden Tests (UI Regression), pytest, Mockito, TDD, RAGAS Evaluation',
+    'Cloud & DevOps: Azure, GCP, AWS, Docker, Kubernetes, GitHub Actions, CI/CD Pipelines, Fastlane, Firebase',
+    'Implementation & Delivery: Technical Discovery, Requirements Scoping, Customer Timeline Management, Escalation Management, Launch Readiness, Delivery Playbooks',
+    'Leadership & Communication: Cross-Functional Coordination, Stakeholder Management, Technical Mentorship, Data-Driven Roadmap Influence, Client-Facing Presentations, Agile/Scrum',
   ];
 
   static const List<String> cvAccomplishments = [
-    'Developed and released a highly-rated Mobile app with over 1k+ downloads.',
-    'Optimized app performance by reducing load times by 20%.',
-    'Collaborated with a team to develop a mobile app that received recognition from the client for excellent performance and usability.'
+    'Drove planning, scoping, and delivery of complex AI-powered implementations — anticipating blockers, managing customer timelines, escalating issues, and ensuring launch readiness across cross-functional teams.',
+    'Served as technical escalation point for integration and custom implementation issues — debugging deep integration problems and designing robust solutions tailored to client-specific constraints.',
+    'Led technical discovery calls with customers — translating ambiguous requirements into clearly scoped stories and building trust with customer stakeholders through transparent, proactive communication.',
+    'Proposed and influenced architectural decisions — designing implementation approaches optimized for product strengths and recommending process/feature improvements based on real-world deployment learnings.',
+    'Built and maintained delivery playbooks, onboarding processes, and internal training materials — mentoring junior engineers and driving continuous improvement in engineering practices.',
+    'Communicated technical findings and recommendations clearly to customers and internal stakeholders — influencing roadmap priorities through structured, data-driven feedback.',
+    'Shipped production integration code in Python, JavaScript, and SQL across customer implementations and internal tooling — maintaining high code quality with automated testing and CI/CD pipelines.',
+    'Developed RAG pipelines and agentic AI workflows using LangChain/LangGraph — enabling intelligent document processing and conversational AI capabilities for enterprise customers.',
+    'Built cross-platform applications shipped to App Store and Google Play across healthcare, fintech, travel, and enterprise verticals with 5-star ratings and 10,000+ installs.',
+    'Implemented CI/CD pipelines with GitHub Actions and Fastlane for automated builds, test regression checks, and zero-touch deployments with rollout strategies.',
   ];
 
   static const List<String> cvEducationAndCerts = [
@@ -67,47 +77,47 @@ class PortfolioData {
 
   static const Map<String, String> cvExperienceSummaries = {
     "Independent Software Engineer":
-        "Leading cross-platform mobile app development with Flutter and building scalable backend services using Node.js and MongoDB. Integrating advanced AI features with Python, OpenAI APIs, and LangChain for RAG pipelines and on-device inference. Managing end-to-end app deployment and version control on App Store and Google Play, ensuring high-quality releases and client satisfaction.",
+        "Drove end-to-end delivery of complex AI and software implementations — leading technical discovery, scoping integrations, debugging deep issues in Python/JavaScript/SQL, and shipping production-ready code. Built RAG pipelines, agentic AI workflows, and FastAPI services. Communicated directly with clients, managed timelines, and created internal delivery playbooks and mentorship programs.",
     "Ecosmob Technologies":
-        "Led cross-platform app development (Flutter, React Native, Cordova) for diverse industries. Engineered native iOS apps (Swift/Obj-C) with VOIP and geolocation features. Collaborated with teams to deliver high-quality apps and managed full deployment lifecycles.",
+        "Led delivery of enterprise software products across mobile, web, and backend — serving as technical escalation point for integration issues, debugging complex systems, and designing robust solutions. Built production code in Python, JavaScript, and TypeScript. Coordinated cross-functionally with Product, QA, and DevOps teams. Mentored junior engineers and drove code review standards.",
     "Green Apex Technolabs":
-        "Developed high-performance Flutter applications focusing on clean architecture and scalability. Implemented features like real-time geolocation tracking and social media integration. Collaborated with UI/UX designers and mentored junior developers.",
+        "Developed cross-platform applications — architecting reusable component libraries, integrating secure REST APIs, implementing automated deployment pipelines, and contributing to engineering standards and delivery process improvements across client projects.",
     "Codal System Pvt Ltd":
-        "Built robust native iOS applications using Swift and Objective-C for healthcare, e-commerce, and fintech sectors. Implemented key features such as Core Data persistence, push notifications, and third-party API integrations. Collaborated closely with cross-functional teams to deliver pixel-perfect interfaces and contributed to establishing efficient team coding standards.",
+        "Built enterprise applications across healthcare, fintech, and e-commerce — handling complex integrations, REST API orchestration, database design (SQL Server, PostgreSQL), and third-party system connections. Established automated testing frameworks and developer tooling that improved team velocity and code quality.",
   };
 
   // ===== EXPERIENCE DATA =====
   static const List<Experience> experiences = [
     Experience(
       company: "Independent Software Engineer",
-      position: "Senior Software Engineer",
+      position: "Senior Software Engineer / Forward Deployed Engineer",
       duration: "Jul 2023 - Present",
       description: """
-- Leading the design and development of cross-platform mobile applications using Flutter and Dart, delivering custom, high-performance solutions for clients across various industries.
-- Building and maintaining scalable backend services with Node.js and MongoDB, ensuring seamless integration between mobile apps and cloud infrastructure.
-- Engineering intelligent, AI-powered features using Python, PyTorch, and Firebase, including on-device inference and personalized user experiences.
-- Implementing Generative AI capabilities using OpenAI APIs, LangChain, and LLMs, including RAG pipelines, fine-tuned models, and AI-driven chat interfaces.
-- Automating workflows and data pipelines using n8n to support AI operations and mobile tasks.
-- Managing release processes for the App Store and Google Play, ensuring smooth deployment and version control.
+- Drove planning, scoping, and delivery of complex AI-powered implementations — anticipating blockers, managing customer timelines, escalating issues, and ensuring launch readiness across functions.
+- Served as technical escalation point for integration and custom implementation issues — debugging deep integration problems in Python, JavaScript, and SQL, and designing robust solutions tailored to client-specific constraints.
+- Led technical discovery calls with customers — translating ambiguous requirements into scoped stories and building trust with customer stakeholders through transparent, proactive communication.
+- Developed RAG pipelines using LangChain, Azure AI Search, and Azure OpenAI — enabling intelligent document Q&A and conversational AI over enterprise knowledge bases.
+- Built intelligent document processing pipelines with Azure Document Intelligence — automating structured data extraction from invoices, contracts, and reports.
+- Implemented LangGraph-based agentic workflows for complex multi-step AI tasks with LangSmith observability and RAGAS-based quality evaluation.
+- Developed FastAPI backend services with Swagger/OpenAPI documentation, Pydantic validation, async endpoints, and pytest test coverage.
+- Created and owned delivery playbooks, onboarding processes, and internal training — driving continuous improvement and mentoring junior engineers.
 """,
       technologies: [
-        "Flutter",
-        "Dart",
-        "iOS",
-        "Swift",
-        "Firebase",
-        "Node.js",
-        "MongoDB",
-        "TypeScript",
         "Python",
-        "PyTorch",
-        "OpenAI APIs",
+        "JavaScript",
+        "SQL",
         "LangChain",
-        "Generative AI",
-        "Fine-tuning",
-        "LLM",
-        "RAG",
-        "N8N",
+        "LangGraph",
+        "LangSmith",
+        "Azure AI Search",
+        "Azure Document Intelligence",
+        "FastAPI",
+        "GPT-4o",
+        "RAGAS",
+        "Docker",
+        "GCP",
+        "Azure",
+        "GitHub Actions",
       ],
       companyUrl: "",
       location: "Remote",
@@ -118,23 +128,28 @@ class PortfolioData {
       position: "Senior Software Engineer",
       duration: "Aug 2021 - Jul 2023",
       description: """
-- Led the development and maintenance of cross-platform mobile applications using Flutter, Dart, React Native, Cordova, and Ionic, delivering tailored solutions for clients in multiple industries.
-- Engineered and optimized native iOS applications with Swift and Objective-C, incorporating advanced features such as VOIP, geolocation tracking, and social media integration.
-- Worked in a collaborative, agile environment with designers, developers, and project managers to ensure high-quality app delivery within deadlines and budget constraints.
-- Participated in code reviews, contributing to the continuous improvement of code quality, architecture, and team knowledge sharing.
-- Oversaw the app deployment lifecycle, including release management for the App Store and Google Play, ensuring smooth launches and timely updates.
+- Led delivery of enterprise software products — serving as technical escalation point for integration and implementation issues, debugging complex problems across backend and frontend systems.
+- Built production code in Python, JavaScript, TypeScript, and Dart — implementing REST API services, cross-platform applications, and real-time WebSocket features for enterprise SaaS products.
+- Developed LangChain-based chatbot and automation workflows — integrating external APIs and delivering conversational AI capabilities into enterprise products.
+- Coordinated cross-functionally with Product, QA, DevOps, and Customer Success teams — managing concurrent implementation timelines and ensuring launch readiness.
+- Implemented CI/CD pipelines with GitHub Actions and automated testing frameworks (pytest, Jest) — establishing quality gates and code review standards.
+- Mentored junior engineers on architecture best practices, clean code patterns, and delivery workflows — conducting thorough code reviews and pair programming sessions.
+- Led client-facing solution walkthroughs and technical demos — communicating technical tradeoffs clearly and incorporating client feedback into iterative improvements.
 """,
       technologies: [
+        "Python",
+        "JavaScript",
+        "TypeScript",
+        "SQL",
+        "FastAPI",
+        "LangChain",
         "Flutter",
-        "Dart",
-        "Cordova",
         "React Native",
-        "iOS",
-        "Swift",
-        "VOIP",
-        "Objective-C",
-        "Ionic",
+        "REST APIs",
         "Firebase",
+        "CI/CD",
+        "GitHub Actions",
+        "Docker",
       ],
       companyUrl: "https://www.ecosmob.com/",
       location: "Remote",
@@ -145,19 +160,20 @@ class PortfolioData {
       position: "Software Engineer",
       duration: "Nov 2020 - Aug 2021",
       description: """
-- Developed and maintained cross-platform mobile applications for clients in a variety of industries, focusing on performance, usability, and scalability.
-- Contributed to the design and implementation of key features, including geolocation tracking and social media integration.
-- Collaborated with a team of developers to ensure timely delivery of high-quality applications within project scope and budget.
-- Participated in code reviews to maintain code quality and shared best practices with team members.
-- Managed the deployment and release process for both iOS and Android platforms, including submission to the App Store and Google Play.
+- Built scalable full-stack application architectures with clean layered patterns, REST API integrations, and cloud-native backend services using Firebase and AWS.
+- Developed reusable project templates and component libraries for cross-platform applications — improving code reuse and consistency across client projects.
+- Implemented automated deployment pipelines for iOS and Android platforms — including Docker containerization and release management for App Store and Google Play.
+- Collaborated cross-functionally with product teams on enterprise solutions — contributing to engineering standards, code review practices, and delivery process improvements.
 """,
       technologies: [
         "Flutter",
         "Dart",
+        "JavaScript",
         "iOS",
         "Swift",
-        "Unity",
         "Firebase",
+        "Docker",
+        "REST APIs",
       ],
       companyUrl: "https://www.green-apex.com/",
       location: "Hybrid",
@@ -168,16 +184,21 @@ class PortfolioData {
       position: "Software Engineer",
       duration: "Jan 2018 - Nov 2020",
       description: """
-- Developed and maintained high-performance iOS applications for clients across diverse industries, ensuring optimal functionality and user experience.
-- Collaborated closely with UI/UX designers and project managers to deliver feature-rich mobile solutions on time and within budget.
-- Contributed to the full app lifecycle, from concept and development to deployment and post-launch support.
+- Developed enterprise applications with REST API orchestration, database schema design (SQL Server, PostgreSQL), and third-party system integrations across healthcare, fintech, and e-commerce verticals.
+- Debugged complex integration issues across multiple systems — designing robust solutions tailored to client-specific constraints and business requirements.
+- Built foundational developer tooling including project templates, coding standards documentation, and automated testing frameworks that improved team velocity and software quality.
+- Managed full application lifecycle from architecture and development through containerized deployment and post-launch monitoring.
 """,
       technologies: [
         "iOS",
         "Swift",
+        "JavaScript",
+        "SQL",
         "Objective-C",
-        "Cocoapods",
+        "REST APIs",
+        "PostgreSQL",
         "Firebase",
+        "Cocoapods",
       ],
       companyUrl: "https://codal.com/",
       location: "Office",
