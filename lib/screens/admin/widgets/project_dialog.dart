@@ -31,6 +31,7 @@ class _ProjectDialogState extends State<ProjectDialog> {
   late TextEditingController _iosUrlController;
   late TextEditingController _orderController;
   bool _isUploading = false;
+  late bool _isActive;
 
   @override
   void initState() {
@@ -46,6 +47,7 @@ class _ProjectDialogState extends State<ProjectDialog> {
     _androidUrlController = TextEditingController(text: p?.androidUrl ?? '');
     _iosUrlController = TextEditingController(text: p?.iOSUrl ?? '');
     _orderController = TextEditingController(text: (p?.order ?? 0).toString());
+    _isActive = p?.isActive ?? true;
   }
 
   @override
@@ -110,6 +112,7 @@ class _ProjectDialogState extends State<ProjectDialog> {
           ? null
           : _iosUrlController.text.trim(),
       order: int.tryParse(_orderController.text.trim()) ?? 0,
+      isActive: _isActive,
     );
 
     widget.onSave(project);
@@ -195,7 +198,22 @@ class _ProjectDialogState extends State<ProjectDialog> {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 12),
+                        const SizedBox(height: 4),
+                        SwitchListTile(
+                          contentPadding: EdgeInsets.zero,
+                          value: _isActive,
+                          activeThumbColor: AppColors.accent,
+                          onChanged: (v) => setState(() => _isActive = v),
+                          title: const Text('Show on portfolio and CV',
+                              style: TextStyle(
+                                  color: AppColors.textPrimary, fontSize: 14)),
+                          subtitle: const Text(
+                              'Turn off to hide this project without deleting it.',
+                              style: TextStyle(
+                                  color: AppColors.textSecondary,
+                                  fontSize: 12)),
+                        ),
+                        const SizedBox(height: 4),
                         _buildTextField(
                           controller: _descriptionController,
                           label: 'Description *',

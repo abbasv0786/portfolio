@@ -11,7 +11,10 @@ import '../../models/experience.dart';
 import '../../models/tech_category.dart';
 import '../../models/about_card.dart';
 import '../../models/approach_phase.dart';
+import '../../services/cv_data_transfer.dart';
+import '../../services/json_file/json_file.dart';
 import 'widgets/about_card_dialog.dart';
+import 'widgets/cv_import_dialog.dart';
 import 'widgets/approach_phase_dialog.dart';
 import 'widgets/experience_dialog.dart';
 import 'widgets/project_dialog.dart';
@@ -907,6 +910,67 @@ class _AdminScreenState extends State<AdminScreen>
     );
   }
 
+  // ==========================================
+  // PROJECT ON/OFF + CV DATA EXPORT / IMPORT
+  // ==========================================
+  Future<void> _toggleProject(Project p, bool on) async {
+    try {
+      await FirestoreService.to.setProjectActive(p, on);
+      _showMessage(on
+          ? '"${p.title}" is now shown on the portfolio and CV.'
+          : '"${p.title}" is now hidden from the portfolio and CV.');
+    } catch (e) {
+      _showMessage('Could not update "${p.title}": $e', isError: true);
+    }
+  }
+
+  List<Widget> _buildTransferButtons() {
+    final style = OutlinedButton.styleFrom(
+      foregroundColor: AppColors.accent,
+      side: const BorderSide(color: AppColors.accent),
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+    );
+    return [
+      OutlinedButton.icon(
+        onPressed: _exportCvData,
+        icon: const Icon(Icons.file_download_outlined, size: 18),
+        label: const Text('Export'),
+        style: style,
+      ),
+      OutlinedButton.icon(
+        onPressed: _importCvData,
+        icon: const Icon(Icons.file_upload_outlined, size: 18),
+        label: const Text('Import'),
+        style: style,
+      ),
+    ];
+  }
+
+  Future<void> _exportCvData() async {
+    final fs = FirestoreService.to;
+    final now = DateTime.now();
+    final json = CvDataTransfer.export(
+      projects: fs.projects,
+      skills: fs.techCategories,
+      experiences: fs.experiences,
+      profile: fs.profileInfo.value,
+      now: now,
+    );
+    final downloaded = await saveJsonFile(json, CvDataTransfer.fileName(now));
+    _showMessage(downloaded
+        ? 'Exported profile, ${fs.experiences.length} experiences, ${fs.projects.length} projects and ${fs.techCategories.length} skill categories.'
+        : 'Export copied to the clipboard.');
+  }
+
+  Future<void> _importCvData() async {
+    final applied = await showDialog<bool>(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => const CvImportDialog(),
+    );
+    if (applied == true) _showMessage('Import saved to Firestore.');
+  }
+
   void _openProjectDialog([Project? project]) {
     final firestore = FirestoreService.to;
     showDialog(
@@ -1033,22 +1097,29 @@ class _AdminScreenState extends State<AdminScreen>
                   ),
                   SizedBox(height: 4),
                   Text(
-                    'Click any project card or press "Update / Edit" to modify details live in Firestore.',
+                    'Switch a project off to hide it from the portfolio and the CV. Export / Import lets you tailor projects & skills for a job.',
                     style:
                         TextStyle(fontSize: 13, color: AppColors.textSecondary),
                   ),
                 ],
               ),
-              ElevatedButton.icon(
-                onPressed: () => _openProjectDialog(),
-                icon: const Icon(Icons.add_rounded, size: 18),
-                label: const Text('Add Project'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.accent,
-                  foregroundColor: Colors.black,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-                ),
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: [
+                  ..._buildTransferButtons(),
+                  ElevatedButton.icon(
+                    onPressed: () => _openProjectDialog(),
+                    icon: const Icon(Icons.add_rounded, size: 18),
+                    label: const Text('Add Project'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.accent,
+                      foregroundColor: Colors.black,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 18, vertical: 12),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -1069,174 +1140,219 @@ class _AdminScreenState extends State<AdminScreen>
                 separatorBuilder: (_, __) => const SizedBox(height: 12),
                 itemBuilder: (context, index) {
                   final p = firestore.projects[index];
-                  return Material(
-                    color: AppColors.backgroundCard,
-                    borderRadius: BorderRadius.circular(12),
-                    child: InkWell(
+                  return Opacity(
+                    opacity: p.isActive ? 1 : 0.55,
+                    child: Material(
+                      color: AppColors.backgroundCard,
                       borderRadius: BorderRadius.circular(12),
-                      onTap: () => _openProjectDialog(p),
-                      child: Container(
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: AppColors.glassBorder),
-                        ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              width: 44,
-                              height: 44,
-                              decoration: BoxDecoration(
-                                color: AppColors.accent.withValues(alpha: 0.15),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              alignment: Alignment.center,
-                              child: Text(
-                                '#${p.order}',
-                                style: const TextStyle(
-                                  color: AppColors.accent,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15,
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(12),
+                        onTap: () => _openProjectDialog(p),
+                        child: Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(color: AppColors.glassBorder),
+                          ),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: 44,
+                                height: 44,
+                                decoration: BoxDecoration(
+                                  color:
+                                      AppColors.accent.withValues(alpha: 0.15),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                alignment: Alignment.center,
+                                child: Text(
+                                  '#${p.order}',
+                                  style: const TextStyle(
+                                    color: AppColors.accent,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15,
+                                  ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(width: 16),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                              const SizedBox(width: 16),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Text(
+                                          p.title,
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                            color: AppColors.textPrimary,
+                                          ),
+                                        ),
+                                        if (!p.isActive) ...[
+                                          const SizedBox(width: 8),
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 8, vertical: 2),
+                                            decoration: BoxDecoration(
+                                              color: Colors.redAccent
+                                                  .withValues(alpha: 0.15),
+                                              borderRadius:
+                                                  BorderRadius.circular(6),
+                                            ),
+                                            child: const Text(
+                                              'Hidden',
+                                              style: TextStyle(
+                                                  fontSize: 11,
+                                                  color: Colors.redAccent),
+                                            ),
+                                          ),
+                                        ],
+                                        if (p.category != null) ...[
+                                          const SizedBox(width: 8),
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 8, vertical: 2),
+                                            decoration: BoxDecoration(
+                                              color: Colors.white10,
+                                              borderRadius:
+                                                  BorderRadius.circular(6),
+                                            ),
+                                            child: Text(
+                                              p.category!,
+                                              style: const TextStyle(
+                                                  fontSize: 11,
+                                                  color: AppColors.accent),
+                                            ),
+                                          ),
+                                        ],
+                                      ],
+                                    ),
+                                    const SizedBox(height: 6),
+                                    Text(
+                                      p.description,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                          fontSize: 13,
+                                          color: AppColors.textSecondary),
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Wrap(
+                                      spacing: 6,
+                                      runSpacing: 4,
+                                      children: p.technologies
+                                          .take(5)
+                                          .map((t) => Container(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 6,
+                                                        vertical: 2),
+                                                decoration: BoxDecoration(
+                                                  color: AppColors.background,
+                                                  borderRadius:
+                                                      BorderRadius.circular(4),
+                                                  border: Border.all(
+                                                      color: AppColors
+                                                          .glassBorder),
+                                                ),
+                                                child: Text(
+                                                  t,
+                                                  style: const TextStyle(
+                                                      fontSize: 11,
+                                                      color: AppColors
+                                                          .textSecondary),
+                                                ),
+                                              ))
+                                          .toList(),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(width: 12),
+                              Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   Row(
+                                    mainAxisSize: MainAxisSize.min,
                                     children: [
                                       Text(
-                                        p.title,
+                                        p.isActive ? 'Shown' : 'Hidden',
                                         style: const TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                          color: AppColors.textPrimary,
-                                        ),
+                                            fontSize: 12,
+                                            color: AppColors.textSecondary),
                                       ),
-                                      if (p.category != null) ...[
-                                        const SizedBox(width: 8),
-                                        Container(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 8, vertical: 2),
-                                          decoration: BoxDecoration(
-                                            color: Colors.white10,
-                                            borderRadius:
-                                                BorderRadius.circular(6),
-                                          ),
-                                          child: Text(
-                                            p.category!,
-                                            style: const TextStyle(
-                                                fontSize: 11,
-                                                color: AppColors.accent),
-                                          ),
-                                        ),
-                                      ],
+                                      Switch(
+                                        value: p.isActive,
+                                        activeThumbColor: AppColors.accent,
+                                        onChanged: (on) =>
+                                            _toggleProject(p, on),
+                                      ),
                                     ],
                                   ),
                                   const SizedBox(height: 6),
-                                  Text(
-                                    p.description,
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(
-                                        fontSize: 13,
-                                        color: AppColors.textSecondary),
+                                  ElevatedButton.icon(
+                                    icon: const Icon(Icons.edit_note_rounded,
+                                        size: 16),
+                                    label: const Text(
+                                      'Update / Edit',
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: AppColors.accent
+                                          .withValues(alpha: 0.18),
+                                      foregroundColor: AppColors.accent,
+                                      side: const BorderSide(
+                                          color: AppColors.accent, width: 1.2),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(8)),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 14, vertical: 10),
+                                      elevation: 0,
+                                    ),
+                                    onPressed: () => _openProjectDialog(p),
                                   ),
-                                  const SizedBox(height: 8),
-                                  Wrap(
-                                    spacing: 6,
-                                    runSpacing: 4,
-                                    children: p.technologies
-                                        .take(5)
-                                        .map((t) => Container(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 6,
-                                                      vertical: 2),
-                                              decoration: BoxDecoration(
-                                                color: AppColors.background,
-                                                borderRadius:
-                                                    BorderRadius.circular(4),
-                                                border: Border.all(
-                                                    color:
-                                                        AppColors.glassBorder),
-                                              ),
-                                              child: Text(
-                                                t,
-                                                style: const TextStyle(
-                                                    fontSize: 11,
-                                                    color: AppColors
-                                                        .textSecondary),
-                                              ),
-                                            ))
-                                        .toList(),
+                                  const SizedBox(height: 6),
+                                  OutlinedButton.icon(
+                                    icon: const Icon(
+                                        Icons.delete_outline_rounded,
+                                        size: 14,
+                                        color: Colors.redAccent),
+                                    label: const Text('Delete',
+                                        style: TextStyle(
+                                            color: Colors.redAccent,
+                                            fontSize: 11)),
+                                    style: OutlinedButton.styleFrom(
+                                      side: BorderSide(
+                                          color: Colors.redAccent
+                                              .withValues(alpha: 0.4)),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(8)),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10, vertical: 6),
+                                    ),
+                                    onPressed: () => _confirmDelete(
+                                      context,
+                                      'Delete Project',
+                                      'Are you sure you want to delete "${p.title}"?',
+                                      () async {
+                                        if (p.id != null) {
+                                          await firestore.deleteProject(p.id!);
+                                          _showMessage('Project deleted.');
+                                        }
+                                      },
+                                    ),
                                   ),
                                 ],
                               ),
-                            ),
-                            const SizedBox(width: 12),
-                            Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                ElevatedButton.icon(
-                                  icon: const Icon(Icons.edit_note_rounded,
-                                      size: 16),
-                                  label: const Text(
-                                    'Update / Edit',
-                                    style: TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: AppColors.accent
-                                        .withValues(alpha: 0.18),
-                                    foregroundColor: AppColors.accent,
-                                    side: const BorderSide(
-                                        color: AppColors.accent, width: 1.2),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8)),
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 14, vertical: 10),
-                                    elevation: 0,
-                                  ),
-                                  onPressed: () => _openProjectDialog(p),
-                                ),
-                                const SizedBox(height: 6),
-                                OutlinedButton.icon(
-                                  icon: const Icon(Icons.delete_outline_rounded,
-                                      size: 14, color: Colors.redAccent),
-                                  label: const Text('Delete',
-                                      style: TextStyle(
-                                          color: Colors.redAccent,
-                                          fontSize: 11)),
-                                  style: OutlinedButton.styleFrom(
-                                    side: BorderSide(
-                                        color: Colors.redAccent
-                                            .withValues(alpha: 0.4)),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8)),
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10, vertical: 6),
-                                  ),
-                                  onPressed: () => _confirmDelete(
-                                    context,
-                                    'Delete Project',
-                                    'Are you sure you want to delete "${p.title}"?',
-                                    () async {
-                                      if (p.id != null) {
-                                        await firestore.deleteProject(p.id!);
-                                        _showMessage('Project deleted.');
-                                      }
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -1282,16 +1398,23 @@ class _AdminScreenState extends State<AdminScreen>
                   ),
                 ],
               ),
-              ElevatedButton.icon(
-                onPressed: () => _openExperienceDialog(),
-                icon: const Icon(Icons.add_rounded, size: 18),
-                label: const Text('Add Experience'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.accent,
-                  foregroundColor: Colors.black,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-                ),
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: [
+                  ..._buildTransferButtons(),
+                  ElevatedButton.icon(
+                    onPressed: () => _openExperienceDialog(),
+                    icon: const Icon(Icons.add_rounded, size: 18),
+                    label: const Text('Add Experience'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.accent,
+                      foregroundColor: Colors.black,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 18, vertical: 12),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -1475,16 +1598,23 @@ class _AdminScreenState extends State<AdminScreen>
                   ),
                 ],
               ),
-              ElevatedButton.icon(
-                onPressed: () => _openTechCategoryDialog(),
-                icon: const Icon(Icons.add_rounded, size: 18),
-                label: const Text('Add Category'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.accent,
-                  foregroundColor: Colors.black,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-                ),
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: [
+                  ..._buildTransferButtons(),
+                  ElevatedButton.icon(
+                    onPressed: () => _openTechCategoryDialog(),
+                    icon: const Icon(Icons.add_rounded, size: 18),
+                    label: const Text('Add Category'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.accent,
+                      foregroundColor: Colors.black,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 18, vertical: 12),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

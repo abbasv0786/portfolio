@@ -10,6 +10,10 @@ class Project {
   final String? category;
   final int order;
 
+  /// When false the project is hidden from the public site and the CV,
+  /// but kept in Firestore so it can be switched back on.
+  final bool isActive;
+
   const Project({
     this.id,
     required this.title,
@@ -21,6 +25,7 @@ class Project {
     this.liveUrl,
     this.category,
     this.order = 0,
+    this.isActive = true,
   });
 
   factory Project.fromMap(Map<String, dynamic> map, [String? docId]) {
@@ -34,7 +39,8 @@ class Project {
       androidUrl: map['androidUrl'] as String?,
       liveUrl: map['liveUrl'] as String?,
       category: map['category'] as String?,
-      order: map['order'] as int? ?? 0,
+      order: (map['order'] as num?)?.toInt() ?? 0,
+      isActive: map['isActive'] as bool? ?? true,
     );
   }
 
@@ -49,6 +55,7 @@ class Project {
       'liveUrl': liveUrl,
       'category': category,
       'order': order,
+      'isActive': isActive,
     };
   }
 
@@ -63,6 +70,7 @@ class Project {
     String? liveUrl,
     String? category,
     int? order,
+    bool? isActive,
   }) {
     return Project(
       id: id ?? this.id,
@@ -75,6 +83,7 @@ class Project {
       liveUrl: liveUrl ?? this.liveUrl,
       category: category ?? this.category,
       order: order ?? this.order,
+      isActive: isActive ?? this.isActive,
     );
   }
 }

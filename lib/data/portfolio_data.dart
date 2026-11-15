@@ -89,6 +89,25 @@ class PortfolioData {
   // ===== EXPERIENCE DATA =====
   static const List<Experience> experiences = [
     Experience(
+      company: "Mercor",
+      position: "Generalist, AI Model Evaluation",
+      duration: "Oct 2026 - Present",
+      description: """
+- Create high-quality research questions, reference answers, and evaluation materials used to benchmark and improve frontier language models for a leading AI lab.
+- Research topics across diverse online sources and condense the findings into clear, accurate, well-structured answers.
+- Design evaluation materials that test model reasoning and factual accuracy, with written explanations that make each judgement easy to verify.
+""",
+      technologies: [
+        "LLM Evaluation",
+        "AI Benchmarking",
+        "Online Research",
+        "Technical Writing",
+      ],
+      companyUrl: "https://mercor.com",
+      location: "Remote",
+      type: "Part-time Contract",
+    ),
+    Experience(
       company: "Independent Software Engineer",
       position: "Senior Software Engineer / Forward Deployed Engineer",
       duration: "Jul 2023 - Present",

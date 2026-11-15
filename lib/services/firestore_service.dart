@@ -12,6 +12,7 @@ import '../models/tech_category.dart';
 import '../models/approach_phase.dart';
 import '../models/profile_info.dart';
 import '../models/contact_message.dart';
+import 'cv_data_transfer.dart';
 import 'image_service.dart';
 
 class FirestoreService extends GetxService {
@@ -187,6 +188,13 @@ class FirestoreService extends GetxService {
       projects.sort((a, b) => a.order.compareTo(b.order));
     }
   }
+
+  /// Projects switched on — the only ones the public site and the CV show.
+  List<Project> get activeProjects =>
+      projects.where((p) => p.isActive).toList();
+
+  Future<void> setProjectActive(Project project, bool isActive) =>
+      updateProject(project.copyWith(isActive: isActive));
 
   Future<void> deleteProject(String? id, {String? title}) async {
     if (id != null && id.isNotEmpty) {
@@ -545,6 +553,47 @@ class FirestoreService extends GetxService {
   Future<void> deleteContactMessage(String id) async {
     await _firestore.collection('contact_messages').doc(id).delete();
     contactMessages.removeWhere((m) => m.id == id);
+  }
+
+  // ================= CV DATA IMPORT =================
+  /// Writes an import plan's profile, experience, project and skill changes
+  /// in one batch.
+  /// Items not in the plan are left untouched; nothing is deleted.
+  Future<void> applyCvImport(CvImportPlan plan) async {
+    final batch = _firestore.batch();
+    final projectsCol = _firestore.collection('projects');
+    final skillsCol = _firestore.collection('tech_categories');
+    final experiencesCol = _firestore.collection('experiences');
+
+    final profile = plan.profile;
+    if (profile != null && profile.kind != ChangeKind.unchanged) {
+      batch.set(_firestore.collection('profile').doc('info'),
+          profile.merged.toMap(), SetOptions(merge: true));
+    }
+    for (final change in plan.experiences) {
+      if (change.kind == ChangeKind.unchanged) continue;
+      final ref = change.kind == ChangeKind.added
+          ? experiencesCol.doc()
+          : experiencesCol.doc(change.merged.id);
+      batch.set(ref, change.merged.toMap());
+    }
+
+    for (final change in plan.projects) {
+      if (change.kind == ChangeKind.unchanged) continue;
+      final ref = change.kind == ChangeKind.added
+          ? projectsCol.doc()
+          : projectsCol.doc(change.merged.id);
+      batch.set(ref, change.merged.toMap());
+    }
+    for (final change in plan.skills) {
+      if (change.kind == ChangeKind.unchanged) continue;
+      final ref = change.kind == ChangeKind.added
+          ? skillsCol.doc()
+          : skillsCol.doc(change.merged.id);
+      batch.set(ref, change.merged.toMap());
+    }
+    await batch.commit();
+    // The snapshot listeners refresh `projects` and `techCategories`.
   }
 
   // ================= IMAGES INTO FIRESTORE =================

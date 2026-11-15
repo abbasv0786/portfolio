@@ -24,11 +24,10 @@ class ProjectsController extends GetxController {
   final RxBool isAnimating = false.obs;
   final RxDouble animationProgress = 0.0.obs;
 
-  // Reactive access to projects from FirestoreService
+  // Reactive access to the switched-on projects from FirestoreService
   List<Project> get projects {
     if (Get.isRegistered<FirestoreService>()) {
-      final list = FirestoreService.to.projects;
-      if (list.isNotEmpty) return list;
+      return FirestoreService.to.activeProjects;
     }
     return [];
   }
@@ -108,7 +107,7 @@ class ProjectsController extends GetxController {
 
   void _syncDynamicFilters(List<Project> projectList) {
     final categories = <String>{'All'};
-    for (var p in projectList) {
+    for (var p in projectList.where((p) => p.isActive)) {
       if (p.category != null && p.category!.trim().isNotEmpty) {
         categories.add(p.category!.trim());
       }
