@@ -5,12 +5,17 @@ on:
     branches:
       - main
 
+# The default GITHUB_TOKEN is read-only for this repo; the deploy step
+# pushes the built site to the gh-pages branch, so it needs write access.
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
         with:
           channel: stable
@@ -19,10 +24,11 @@ jobs:
         run: flutter pub get
 
       - name: Build web
-        run: flutter build web
+        # Served from https://abbasv0786.github.io/portfolio/
+        run: flutter build web --release --base-href /portfolio/
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: build/web
