@@ -32,7 +32,7 @@ class CvContent {
       profile: fs.profileInfo.value,
       skills: fs.techCategories.toList(),
       experiences: fs.experiences.toList(),
-      projects: fs.projects.toList(),
+      projects: fs.activeProjects,
       education: PortfolioData.cvEducationAndCerts,
     );
   }
